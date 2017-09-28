@@ -224,28 +224,51 @@ def Document_list(request):
     model = Document.objects.filter(departament=request.session['departament']['active_id']).order_by('id')
     return render(request, 'document/list.html', {'model': model})
 
-def Detalle_doc(request, id_docum):
-    marker='<style> .marker {background-color: yellow;}</style>'
+def Document_list_filter(request, **kwargs):
+    model = Document.objects.filter(departament=request.session['departament']['active_id']).order_by('id')
+    if kwargs['value']== 'null':
+        model = Document.objects.filter(departament=request.session['departament']['active_id'], activo=False).order_by('id')
+    elif kwargs['value'] == 'printed':
+        model = Document.objects.filter(departament=request.session['departament']['active_id'], print=True).order_by('id')
+    elif kwargs['value'] == 'pending':
+        model = Document.objects.filter(departament=request.session['departament']['active_id'],activo=True, print=False).order_by('id')
+    return render(request, 'document/list.html', {'model': model})
+
+def Detalle_doc(request, id_docum, **kwargs):
+    print(kwargs)
     data = {
         'detail': Document.objects.get(id=id_docum),
         'date': str(Document.objects.get(id=id_docum).created_at),
-        'body' : mark_safe(marker+' '+Document.objects.get(id=id_docum).body),
-        'signature' : mark_safe(marker+' '+Document.objects.get(id=id_docum).remittent.signature),
+        'body' : mark_safe(Document.objects.get(id=id_docum).body),
+        'signature' : mark_safe(Document.objects.get(id=id_docum).remittent.signature),
     }
-    print(Document.objects.get(id=id_docum).created_at)
     if request.session['alert']:
         data['alert']=request.session['alert']
         request.session['alert']=None
-    print(data)
     return render(request, "document/detail.html", data)
 
 def Resumen(request, **kwargs):
     data = {}
     if Document.objects.filter(departament=request.session['departament']['active_id']):
-        data['model'] = Document.objects.filter(departament=request.session['departament']['active_id']).order_by('id')[:5]
+        data['model'] = Document.objects.filter(departament=request.session['departament']['active_id']).order_by('-id')[:5]
     data['document_create'] =  Document.objects.filter(departament=request.session['departament']['active_id']).count()
+    data['document_printed'] =  Document.objects.filter(departament=request.session['departament']['active_id'], print=True).count()
+    data['document_pending'] =  Document.objects.filter(departament=request.session['departament']['active_id'], print=False, activo=True).count()
+    data['document_null'] =  Document.objects.filter(departament=request.session['departament']['active_id'], activo=False).count()
+
 
     return render(request, 'document/resume.html', data)
+
+def prints(request, **kwargs):
+
+    obj = Document.objects.get(id=kwargs['id_docum'])
+    obj.print = True
+    obj.save()
+    request.session['alert'] = 'printed'
+
+
+    return redirect('document:documento_detalle', kwargs['id_docum'])
+
 
 def getMessage(tipo):
     return Alertmessage.objects.get(tipo=tipo)

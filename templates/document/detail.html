@@ -13,10 +13,12 @@
 
 
     {% if alert %}
-        <div class="alert alert-danger alert-dismissable ">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            {{ alert }} <!-- <a href="#" class="alert-link">Alert Link</a>. -->
-        </div>
+        {% if alert != 'printed' %}
+            <div class="alert alert-danger alert-dismissable ">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                {{ alert }} <!-- <a href="#" class="alert-link">Alert Link</a>. -->
+            </div>
+            {% endif %}
     {% endif %}
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -27,11 +29,12 @@
                     <div class="col-md-6" align="right">
 
                         <div class="btn-group">
-                            <a class="btn btn-default" href="{% url 'document:documento_edit' detail.id %}"><i class="fa fa-edit"></i> Editar</a>
+                            <a class="btn btn-primary" href="{% url 'document:documento_edit' detail.id %}"><i class="fa fa-edit"></i> Editar</a>
 
                         </div>
                         <div class="btn-group" style="margin-left: 4%">
-                            <button id="print_btn" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir</button>
+                            <button class="btn btm-block btn-success" onclick="location.href='{% url 'document:documento_impreso' detail.id %}'"><i class="fa fa-print"></i> {% if detail.print %}Reimprimir{% else %}Imprimir{% endif %}</button>
+
                         </div>
                     </div>
                 </div>
@@ -157,3 +160,11 @@
             </div>
         </div>
 {% endblock %}
+
+{% block jquery %}
+{% if alert == 'printed' %}
+    <script type="text/javascript">
+            $('#documento').printThis({});
+    </script>
+{% endif %}
+{% endblock jquery %}

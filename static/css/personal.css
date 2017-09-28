@@ -9,9 +9,29 @@
     margin-bottom: 60px;
     background-color: #ffffff;
 }
-.template-list:hover {
-    background-color: rgba(0, 0, 0, 0.06);
-}
 .template-list {
-    background-color: transparent;
+    padding-top: 1px;
 }
+.template-list .list-header div {
+    font-weight: bold;
+    margin-top: -8px;
+}
+.template-list .row-list div {
+     border-right: solid 1px #e0e4ec;
+     border-left: solid 1px #e0e4ec;
+
+}
+.template-list .row-list div{
+     border-right: solid 1px #e0e4ec;
+     border-left: solid 1px #e0e4ec;
+}
+.template-list .body-list{
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.template-list .body-list:hover{
+    background-color: rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+}
+
