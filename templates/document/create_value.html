@@ -1,0 +1,132 @@
+{% extends 'base/base.html' %}
+{% block title %} Crear {{ data.titulo }} {% endblock %}
+{% block header %}
+    <h1>
+        Documentos
+        <small>Crear {{ titulo }}.</small>
+    </h1>
+{% endblock header %}
+{% block content %}
+
+
+<script>
+window.onload = function ()
+{
+    CKEDITOR.disableAutoInline = true;
+    CKEDITOR.replace('editor1',
+     {
+         contentsCss: "/static/bower_components/ckeditor/value.css",
+         customConfig: "/static/bower_components/ckeditor/value.js"
+     });
+
+};
+</script>
+
+    <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+            <h3>
+            <i class="fa fa-plus fa-fw"></i> Por favor, complete el siguiente formulario para crear un nuevo {{ tema }}.
+        </h3>
+        </div>
+        <div class="box-body">
+            <form method="post">
+                <div class="row">
+                    {% csrf_token %}
+                    <div class="col-lg-8">
+                        <label>Nombre:</label>
+                        <input type="text" name="last_name" maxlength="50" value="{{ modelform.first_name }}" class="form-control" id="id_last_name" required />
+                        <label style="padding-top: 20px">Apellidos</label>
+                        <input type="text" name="first_name" maxlength="50" value="{{ modelform.last_name }}" class="form-control" id="id_first_name" required />
+                        <label style="padding-top: 20px">Cargo:</label>
+                        <input type="text" name="job_title" maxlength="100" value="{{ modelform.job_title }}" class="form-control" id="id_job_title" required />
+
+                    </div>
+                    <div class="col-lg-4" align="center">
+                        {% if value == 'remittent' %}
+                            <label>Firma:</label>
+                             <textarea class="form-control" name="signature" cols="30"  id="editor1" required>
+                                {{ modelform.signature|safe }}
+                             </textarea>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 3%">
+                    <div class="col-lg-9" align="right">
+
+                    </div>
+                    <div class="col-lg-3" align="right">
+                        <input type="submit" style="width: 200px" class="btn btn-primary" value="Guardar y volver" >
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="box box-default color-palette-box">
+    <div class="box-header with-border">
+	<h3 class="box-title"><i class="fa fa-users fa-fw"></i> Listados de {{ tema }} registrados.</h3>
+    <div class="panel-body">
+        <div class="box-header with-border" style="padding-top: 1px">
+            <div style="font-size: medium">
+                <div class="row">
+                    <div class="col-md-3" align="center">
+                        <b>Nombre</b>
+                    </div>
+                    <div class="col-md-3" align="center">
+                        <b>Apellidos</b>
+                    </div>
+                    <div class="col-md-6" align="center">
+                        <b>Cargos</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if model %}
+        {% for models in model %}
+                {% if models.active == True %}
+                    <div class="box-header with-border template-list">
+                        <div data-toggle="collapse" data-parent="#accordion" href="#collapse{{ models.id }}" aria-expanded="false" class="collapsed" style="cursor: pointer">
+                            <div class="row">
+                                <div class="col-md-3" align="center">
+                                    {{ models.last_name }}
+                                </div>
+                                <div class="col-md-3" align="center">
+                                    {{ models.first_name }}
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    {{ models.job_title }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collapse{{ models.id }}" class="panel-collapse collapse " aria-expanded="false" style="height: 0px;">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12" align="right" style="display: inline">
+                    <a class="btn btn-block btn-primary " href="{% url 'document:edit_value' value models.id %}" style="display: inline">Editar</a>
+                    <span style="padding-left: 20px"></span>
+                    <a class="btn btn-block btn-danger" href="{% url 'document:active_off' value models.id %}" style="display: inline"> Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+                {% endif  %}
+            {% endfor %}
+        {% else %}
+        <h3>Sin datos</h3>
+        {% endif %}
+
+		</div>
+	</div>
+</div>
+</div>
+
+
+{% endblock %}

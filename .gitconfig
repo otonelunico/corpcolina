@@ -1,0 +1,8 @@
+[user]
+	name = Octavio Cubillos
+	email = ocubillosj@gmail.com
+[color]
+	status = auto
+	branch = auto
+	diff = auto
+	interactive = auto

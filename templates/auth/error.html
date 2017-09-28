@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ title }}</title>
+    <script>
+        function doalert(){
+
+            window.open("auth/logout");
+            return false;
+        }
+    </script>
+    </head>
+    <body style="text-align: center">
+        <h2>{{ messages }}</h2>
+        <h2><a href="https://accounts.google.com/Logout" id="link" onclick="doalert()"> Has clic aqui para {{ action }} de cuenta actualmente en uso.</a></h2>
+
+    </body>
+</html>
