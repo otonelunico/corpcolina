@@ -11,7 +11,7 @@
 
     <div class="box box-default color-palette-box">
         <div class="box-header with-border">
-          <h3 class="box-title"><i class="fa fa-tag"></i> Color Palette</h3>
+          <h3 class="box-title"><i class="fa fa-tag"></i> Estados</h3>
         </div>
         <div class="box-body ">
 
@@ -175,7 +175,11 @@
                             <b>Documento N°{{ document.number }}/{{ document.year }}</b>
                         </div>
                         <div class="col-md-6" align="right">
+                        {% if document.print %}
+                            <a class="btn btn-block btn-primary " data-toggle="modal" data-target="#edit{{ document.id }}" style="display: inline">Editar</a>
+                            {% else %}
                             <a class="btn btn-block btn-primary " href="{% url 'document:documento_edit' document.id %}" style="display: inline">Editar</a>
+                            {% endif %}
                             <span style="padding-left: 20px"></span>
                             <a class="btn btn-block btn-info " href="{% url 'document:documento_detalle' document.id %}" style="display: inline" >Ver</a>
                             <span style="padding-left: 20px"></span>
@@ -203,11 +207,31 @@
                       </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-outline" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-outline" onclick="location.href='{% url 'document:active_off' 'documento' document.id %}'">SI</button>
+                        <button type="button" class="btn btn-outline" onclick="location.href='{% url 'document:active_off' 'documento' document.id %}'">Anular</button>
                       </div>
                     </div>
                   </div>
                 </div>
+                    {% if document.print %}
+                    <div class="modal modal-warning fade in" id="edit{{ document.id }}" tabindex="-1" role="dialog" aria-labelledby="edit{{ document.id }}Label">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="edit{{ document.id }}Label">editar Documento</h4>
+                      </div>
+                      <div class="modal-body">
+                        <h3> Esta seguro que desea editar el documento N°{{ document.id }}/{{ document.created_at.year }}</h3>
+                          <p>Si lo anula no se podra volder a acceder a el.</p>
+                      </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="location.href='{% url 'document:documento_edit' document.id %}'">Editar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    {% endif %}
                 {% else %}
                   <div class="box-header with-border ">
                         <div data-toggle="collapse" aria-expanded="false" class="collapsed" style="color: #909090;cursor: not-allowed">

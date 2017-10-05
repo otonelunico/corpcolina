@@ -9,7 +9,7 @@
 {% block content %}
     <div class="box box-default color-palette-box">
         <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-tag"></i> Ultimos documentos creados.</h3>
+            <h3 class="box-title"><i class="fa fa-tag"></i> Todos lo documentos creados.</h3>
         </div>
         <div class="box-body template-list">
             <div class="box-header with-border">
@@ -129,22 +129,22 @@
                   <div class="box-header with-border ">
                         <div data-toggle="collapse" aria-expanded="false" class="collapsed" style="color: #909090;cursor: not-allowed">
                             <div class="row hidden-xs hidden-sm row-list">
-    <div class="col-xs-1" align="center">
-        {{ document.number }}/{{ document.year }}
-    </div>
-    <div class="col-xs-3" align="center">
-        {{ document.matter }}
-    </div>
-    <div class="col-xs-3" align="center">
-        {{ document.created_at.date }}
-    </div>
-    <div class="col-xs-1" align="center">
-        {{ document.type }}
-    </div>
-    <div class="col-xs-4" align="center">
-        {{ document.receiver }}
-    </div>
-</div>
+                                <div class="col-xs-1" align="center">
+                                    {{ document.number }}/{{ document.year }}
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                    {{ document.matter }}
+                                </div>
+                                <div class="col-xs-3" align="center">
+                                    {{ document.created_at.date }}
+                                </div>
+                                <div class="col-xs-1" align="center">
+                                    {{ document.type }}
+                                </div>
+                                <div class="col-xs-4" align="center">
+                                    {{ document.receiver }}
+                                </div>
+                            </div>
                             <div class="row hidden-lg hidden-xl  hidden-md row-list">
                         <div class="col-xs-2" align="center">
                             {{ document.number }}/{{ document.year }}

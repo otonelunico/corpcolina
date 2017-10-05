@@ -4,8 +4,13 @@ from documents.models import Document, Receiver, Remittent, Document_type, Alert
 from documents.forms import DocumentForm, RemittentForm, ReceiverForm
 from django.utils.safestring import mark_safe
 from authentication.models import Departament
+from django.utils.dateparse import parse_date
 import datetime, time
 from dashboard import views
+import  ast
+from django.views import View
+
+
 
 def Current_date():
     x = datetime.datetime.now()
@@ -278,3 +283,100 @@ def setMessage(tipo, msj, id):
     obj.message = msj
     obj.dueno = id
     obj
+
+class ListPersonalized(View):
+    template = 'document/personalized_list.html'
+
+    def get(self, request):
+        type = Document_type.objects.all()
+        remittent = Remittent.objects.all()
+        receiver = Receiver.objects.all()
+        return render(request, self.template, locals())
+
+class ListPersonalizedSet(View):
+    template = 'document/personalized_list.html'
+
+
+    def get(self, request, **kwargs):
+        type = Document_type.objects.all()
+        remittent= Remittent.objects.all()
+        receiver = Receiver.objects.all()
+        dere = kwargs['dere']
+        date_ = kwargs['date']
+        date = date_.replace('AND', '&')
+        date = date.replace('_', '-')
+        date_ = date.replace('-', '/')
+        date_ = date_.replace('&', ' - ')
+        date = date.split('&')
+        null = False
+        if kwargs['null']=='True':
+            null = True
+        type_ = None
+        if kwargs['type'] != 'all':
+            type_ = kwargs['type']
+        select_type = Document_type.objects.get(id=type_).titulo
+        select_type_id = Document_type.objects.get(id=type_).id
+        select_rem = []
+        documents = []
+        documents_ = []
+        if kwargs['sere'] == 'remittent':
+            dere = dere.replace('L','0')
+            dere = dere.replace('0','')
+            dere = dere.replace('Rrem_', '')
+            dere = dere.replace('rem', ',')
+            dere = dere.replace('_', '')
+            dere = dere.split(',')
+            for de in dere:
+                select_rem += [de]
+            for ll in dere:
+                if ll:
+                    if ll == 'all':
+                        documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],)]
+                    else:
+                        documents_+=[Document.objects.filter(departament=request.session['departament']['active_id'],remittent=ll)]
+        elif kwargs['sere'] == 'receiver':
+            dere = dere.replace('L','')
+            dere = dere.replace('Rrec_', '')
+            dere = dere.replace('rec_', ',')
+            dere = dere.replace('_', '')
+            dere = dere.split(',')
+
+            for ll in dere:
+                if ll:
+                    if ll == 'all':
+                        documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],)]
+                    else:
+                        documents_+=[Document.objects.filter(departament=request.session['departament']['active_id'],receiver=ll)]
+        else:
+            dere = dere.split('0')
+
+            for ll in dere:
+                ll = ll.replace('rem_', "'remitten' ,")
+                ll = ll.replace('rec_', "'receiver' ,")
+                ll = ll.replace('L', ',')
+                if ll =='all,':
+                    documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],)]
+                else:
+                    ll = '['+ll+']'
+
+                    ll = ast.literal_eval(ll)
+                    if ll[0]== 'remitten':
+                        documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],remittent_id=ll[1])]
+                    else:
+                        documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],receiver_id=ll[1])]
+        val = True
+        for ll in documents_:
+            for lo in ll:
+                for do in documents:
+                    if lo == do:
+                        val = False
+                if null:
+                    if lo.created_at.date() <= parse_date(date[1]) and lo.created_at.date() >= parse_date(date[0]) and val and lo.type == type_:
+                        documents += [lo]
+                else:
+                    if lo.created_at.date() <= parse_date(date[1]) and lo.created_at.date() >= parse_date(date[0]) and val and lo.activo != null and lo.type == type_:
+                        documents += [lo]
+        print(select_rem)
+        for sel in select_rem:
+            print(sel)
+        return render(request, self.template, locals())
