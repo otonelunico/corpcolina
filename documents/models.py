@@ -42,6 +42,7 @@ class Document(models.Model):
     type = models.ForeignKey(Document_type, null=False, blank=True, on_delete=models.CASCADE)
     number = models.IntegerField(null=False)
     matter = models.CharField(max_length=50, null=False)
+    previous = models.CharField(max_length=50, null=False)
     receiver = models.ForeignKey(Receiver, null=False, blank=True, on_delete=models.CASCADE)
     remittent = models.ForeignKey(Remittent, null=False, blank=True, on_delete=models.CASCADE)
     body = models.TextField(null=False)

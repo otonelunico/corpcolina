@@ -12,7 +12,8 @@ class DocumentForm(forms.ModelForm):
 			'receiver',
 			'body',
 			'footer',
-			'change'
+			'change',
+			'previous'
 		]
 		labels={
 			'type':'Type',
@@ -21,7 +22,8 @@ class DocumentForm(forms.ModelForm):
 			'receiver':'Receiver',
 			'body':'Body',
 			'footer':'Footer',
-			'change':'Change'
+			'change':'Change',
+			'previous': 'Previous'
 		}
 		widgets={
 			'type':forms.Select(attrs={'class':'form-control'}),
@@ -31,6 +33,7 @@ class DocumentForm(forms.ModelForm):
 			'body': forms.Textarea(attrs={'class':'form-control'}),
 			'footer': forms.Textarea(attrs={'class':'form-control'}),
 			'change':forms.CheckboxInput(attrs={'class':'form-control'}),
+			'previous': forms.TextInput(attrs={'class':'form-control'}),
 			}
 
 class RemittentForm(forms.ModelForm):

@@ -18,7 +18,7 @@ window.onload = function ()
 <div class="box box-primary">
     <div class="box-header with-border">
         {% if editdoc %}
-      <h3 class="box-title">Por favor, complete el siguiente formulario para editar el documento N°{{ number }}</h3>
+      <h3 class="box-title">Por favor, complete el siguiente formulario para editar el documento N°{{ model.number }}</h3>
         {% else %}
       <h3 class="box-title">Por favor, complete el siguiente formulario para crear un nuevo documento.</h3>
         {% endif %}
@@ -30,14 +30,25 @@ window.onload = function ()
       <div class="box-body">
         <div class="form-group">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
 
-                    Fecha: {{ date.nday }}, {{ date.day }} de {{ date.month }} del {{ date.year }}
+                    <h3>Fecha: {{ date.nday }}, {{ date.day }} de {{ date.month }} del {{ date.year }}</h3>
                 </div>
-                <div class="col-md-4" align="center">
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
 
+                </div>
+                <div class="col-md-5">
+                    Anterior
+                    <select class="form-control" name="previous">
+                        {% if previous %}
+                            <option value="{{ previous.id }}">{{ previous.matter }}</option>
+                        {% endif %}
+                            <option value="0">No Anterior</option>
+                        {% for foo in doc_for_dept %}
+                            <option value="{{ foo.id }}">{{ foo.matter }}</option>
+                        {% endfor %}
+
+                    </select>
                 </div>
             </div>
         </div>

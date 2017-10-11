@@ -27,6 +27,7 @@
                             <option value="all">Todos</option>
                             <option value="remittent">Remitente</option>
                             <option value="receiver">Destinatario</option>
+                            <option value="matter">Materia</option>
                         </select>
                     </div>
                 </div>
@@ -40,16 +41,13 @@
                                 <option value="all" >Todos</option>
 
                                     {% for foo in remittent %}
-                                        {% for fol in select_rem %}
-                                            {% if foo.id  == fol %}
-                                                <option selected value="rem_{{ foo.id }}">{{ foo }}</option>
-                                            {% endif %}
-                                        {% endfor %}
-
                                         <option value="rem_{{ foo.id }}">{{ foo }}</option>
                                     {% endfor %}
                                     {% for foo in receiver %}
                                         <option value="rec_{{ foo.id }}">{{ foo }}</option>
+                                    {% endfor %}
+                                    {% for foo in matter %}
+                                        <option value="mat_{{ foo.id }}">{{ foo.matter }}</option>
                                     {% endfor %}
                             </select>
                         </div>
@@ -60,16 +58,14 @@
                     <div class="form-group">
                         <label>Tipo documento</label>
                         <select class="form-control select2 select2-hidden-accessible" id="id_type" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                            <!-- <option value="all" selected="selected">Todos</option> -->
                             {% if select_type %}
-                            <option selected="selected" value="{{ select_type_id }}">{{ select_type }}</option>
-                            {% else %}
-                            <option value="all" selected="selected">Todos</option>
+                            <option selected="selected" value="{{ select_type }}">{{ select_type }}</option>
                             {% endif %}
                             {% for foo in type %}
-
-                                {% ifequal foo select_type %}
-                                <option value="{{ foo.id }}">{{ foo }}</option>
-                                {% endifequal %}
+                                {% if foo.id != select_type_id %}
+                                    <option value="{{ foo }}">{{ foo }}</option>
+                                {% endif %}
                             {% endfor %}
 
                         </select>
@@ -302,6 +298,17 @@
                         +
                         '                                    {% endfor %}\n' +
                     '                            </select>';
+                }else if (rede === 'matter') {
+                    document.getElementById('id_rede_c').innerHTML = '' +
+                    '<label>Seleccione Materia</label>\n' +
+                    '                            <select class="select2" name="states[]" multiple="multiple" id="id_fields" style="width: 100%;">\n' +
+                    '                                <option value="all">Todos</option>\n' +
+                    '\n' +
+                    '                                    {% for foo in matter %}\n'+
+                        '                                        <option value="mat_{{ foo.id }}">{{ foo.matter }}</option>\n'
+                        +
+                        '                                    {% endfor %}\n' +
+                    '                            </select>';
                 } else {
                     document.getElementById('id_rede_c').innerHTML = '' +
                     '<label>Seleccione Remitemitente/Destinatario</label>\n' +
@@ -314,6 +321,10 @@
                         '                                    {% endfor %}\n' +
                     '                                    {% for foo in receiver %}\n'+
                         '                                        <option value="Yrec_{{ foo.id }}">{{ foo }}</option>\n'
+                        +
+                        '                                    {% endfor %}\n' +
+                    '                                    {% for foo in matter %}\n'+
+                        '                                        <option value="mat_{{ foo.id }}">{{ foo.matter }}</option>\n'
                         +
                         '                                    {% endfor %}\n' +
                     '                            </select>';

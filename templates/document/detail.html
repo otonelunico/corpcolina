@@ -97,7 +97,7 @@
                                 <div style="text-align: left; margin-left: 50%;padding-top: 100px">
 
                                     <b><p>ORD.: N°{{ detail.number }}/{{ detail.year }}<br>
-                                    ANT.: -<br>
+                                    ANT.: {% if previous %}{{ previous.matter }}{% else %} - {% endif %}<br>
                                     MAT.: {{ detail.matter }}.<br></p></b>
 
                                 </div>

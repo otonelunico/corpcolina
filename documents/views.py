@@ -82,6 +82,8 @@ def Document_create(request):
                     valdos = valdos + 1
                 if obj.change != last_document.change:
                     valdos = valdos + 1
+                if obj.previous != last_document.previous:
+                    valdos = valdos + 1
 
 
                 if valdos < 2:
@@ -92,6 +94,7 @@ def Document_create(request):
                     act.receiver=obj.receiver
                     act.body=obj.body
                     act.footer=obj.footer
+                    act.previous=obj.previous
                     act.save()
                     obj.id = last_document.id
                     if valdos > 0:
@@ -117,7 +120,7 @@ def Document_create(request):
 
     else:
         form = DocumentForm()
-
+    data['doc_for_dept'] = doc_for_dept
     data['edit']=True #Para activar texto enriquesido
     data['remittent'] = Remittent.objects.filter(active=True).order_by('id')
     data['receiver'] = Receiver.objects.filter(active=True).order_by('id')
@@ -206,15 +209,24 @@ def Active_off(request, value, id_value):
 
 def Document_edit(request, id_documento):
 
+    doc_for_dept= Document.objects.filter(departament=request.session['departament']['active_id'])
     data={'model' : Document.objects.get(id=id_documento)}
     if request.method == "GET":
         form = DocumentForm(instance=data['model'])
     else:
         form = DocumentForm(request.POST, instance=data['model'])
+        print(form)
         if form.is_valid():
             form.save()
+        else:
+            print(form.is_valid())
+            print(form.errors)
+            form = DocumentForm(request.POST)
         return redirect('document:documento_list')
     date = Current_date()
+    if Document.objects.filter(id=data['model'].previous).count()>0:
+        data['previous'] = Document.objects.get(id=data['model'].previous)
+    data['doc_for_dept'] = doc_for_dept
     data['remittent'] = Remittent.objects.filter(active=True).order_by('id')
     data['receiver'] = Receiver.objects.filter(active=True).order_by('id')
     data['type'] = Document_type.objects.all().order_by('id')
@@ -222,7 +234,6 @@ def Document_edit(request, id_documento):
     data['date']= date
     data['editdoc']=True
     data['edit']=True
-    print(data['model'].change)
     return render(request, 'document/form.html', data)
 
 def Document_list(request):
@@ -247,6 +258,8 @@ def Detalle_doc(request, id_docum, **kwargs):
         'body' : mark_safe(Document.objects.get(id=id_docum).body),
         'signature' : mark_safe(Document.objects.get(id=id_docum).remittent.signature),
     }
+    if Document.objects.filter(previous=Document.objects.get(id=id_docum).id).count()>0:
+        data['previous']= Document.objects.get(previous=Document.objects.get(id=id_docum).id)
     if request.session['alert']:
         data['alert']=request.session['alert']
         request.session['alert']=None
@@ -291,6 +304,8 @@ class ListPersonalized(View):
         type = Document_type.objects.all()
         remittent = Remittent.objects.all()
         receiver = Receiver.objects.all()
+        matter = Document.objects.filter(departament=request.session['departament']['active_id'],).order_by('matter')
+
         return render(request, self.template, locals())
 
 class ListPersonalizedSet(View):
@@ -301,6 +316,8 @@ class ListPersonalizedSet(View):
         type = Document_type.objects.all()
         remittent= Remittent.objects.all()
         receiver = Receiver.objects.all()
+        matter = Document.objects.filter(departament=request.session['departament']['active_id'],).order_by('matter')
+
         dere = kwargs['dere']
         date_ = kwargs['date']
         date = date_.replace('AND', '&')
@@ -314,8 +331,11 @@ class ListPersonalizedSet(View):
         type_ = None
         if kwargs['type'] != 'all':
             type_ = kwargs['type']
-        select_type = Document_type.objects.get(id=type_).titulo
-        select_type_id = Document_type.objects.get(id=type_).id
+        else:
+            type_ = None
+        if Document_type.objects.filter(titulo=type_).count() >0:
+            select_type = Document_type.objects.get(titulo=type_).titulo
+            select_type_id = Document_type.objects.get(titulo=type_).id
         select_rem = []
         documents = []
         documents_ = []
@@ -347,12 +367,27 @@ class ListPersonalizedSet(View):
                         documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],)]
                     else:
                         documents_+=[Document.objects.filter(departament=request.session['departament']['active_id'],receiver=ll)]
+        elif kwargs['sere'] == 'matter':
+            print('matter')
+            dere = dere.replace('L','')
+            dere = dere.replace('Rmat_', '')
+            dere = dere.replace('mat_', ',')
+            dere = dere.replace('_', '')
+            dere = dere.split(',')
+
+            for ll in dere:
+                if ll:
+                    if ll == 'all':
+                        documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],)]
+                    else:
+                        documents_+=[Document.objects.filter(departament=request.session['departament']['active_id'],id=ll)]
         else:
             dere = dere.split('0')
 
             for ll in dere:
                 ll = ll.replace('rem_', "'remitten' ,")
                 ll = ll.replace('rec_', "'receiver' ,")
+                ll = ll.replace('mat_', "'matter' ,")
                 ll = ll.replace('L', ',')
                 if ll =='all,':
                     documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],)]
@@ -362,21 +397,22 @@ class ListPersonalizedSet(View):
                     ll = ast.literal_eval(ll)
                     if ll[0]== 'remitten':
                         documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],remittent_id=ll[1])]
-                    else:
+                    elif ll[0] == 'receiver':
                         documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],receiver_id=ll[1])]
+                    elif ll[0] == 'matter':
+                        documents_ += [Document.objects.filter(departament=request.session['departament']['active_id'],id=ll[1])]
         val = True
+
         for ll in documents_:
             for lo in ll:
                 for do in documents:
                     if lo == do:
                         val = False
                 if null:
-                    if lo.created_at.date() <= parse_date(date[1]) and lo.created_at.date() >= parse_date(date[0]) and val and lo.type == type_:
+                    if lo.created_at.date() <= parse_date(date[1]) and lo.created_at.date() >= parse_date(date[0]) and val and str(lo.type) == str(type_):
                         documents += [lo]
                 else:
-                    if lo.created_at.date() <= parse_date(date[1]) and lo.created_at.date() >= parse_date(date[0]) and val and lo.activo != null and lo.type == type_:
+                    if lo.created_at.date() <= parse_date(date[1]) and lo.created_at.date() >= parse_date(date[0]) and val and lo.activo != null  and str(lo.type) == str(type_):
                         documents += [lo]
-        print(select_rem)
-        for sel in select_rem:
-            print(sel)
+
         return render(request, self.template, locals())
