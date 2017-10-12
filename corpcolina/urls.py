@@ -38,3 +38,11 @@ urlpatterns += [
 urlpatterns += [
     # ... the rest of your URLconf goes here ...
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+from django.shortcuts import render
+def Verify(request):
+    return render(request, 'verifyforzoho.html')
+
+urlpatterns +=[
+    url(r'^zohoverify/verifyforzoho.html$', Verify, name="verifyforzoho"),
+]
