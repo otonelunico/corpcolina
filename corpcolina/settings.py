@@ -181,3 +181,12 @@ SOCIAL_AUTH_ALWAYS_ASSOCIATE = True
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = reverse_lazy('auth:newuser')
 
 SOCIAL_AUTH_INACTIVE_USER_URL = reverse_lazy('auth:logout')
+"""
+# EMAIL SETTINGS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = "587"
+EMAIL_HOST_USER = "ocubillos@corporacioncolina.cl"
+EMAIL_HOST_PASSWORD = "elunico1"
+EMAIL_USE_TLS = True
+"""
