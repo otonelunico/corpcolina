@@ -1,246 +1,243 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Corporacion de Colina">
-    <meta name="author" content="Octavio Cubillos">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Corporacion de Colina">
+        <meta name="author" content="Octavio Cubillos">
 
-	<title>Corporacion Colina {% block title %} {% endblock %}</title>
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <title>Corporacion Colina {% block title %} {% endblock %}</title>
+         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-    <link rel="stylesheet" href="{% static 'css/personal.css' %}">
-    <link rel="stylesheet" href="{% static 'bower_components/select2/dist/css/select2.min.css' %}">
-    <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{% static 'bower_components/Ionicons/css/ionicons.min.css' %}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-    folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
-    <!-- Date Picker -->
-    <link rel="stylesheet" href="{% static 'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css' %}">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{% static 'bower_components/bootstrap-daterangepicker/daterangepicker.css' %}">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-<script>
-var valor="";
-var mostrarValor = function(x){
-    valor = valor+x.value
-    document.getElementById('divXCambiar').innerHTML = "\n" +
-        "                            <select class=\"form-control hidden\" name=\"departament\">\n" +
-        "                                <option value=\""+valor+"\">"+valor+"</option>\n" +
-        "                            </select>" +valor+
-        ""
-}
-</script>
-</head>
-
-<body class="hold-transition skin-blue">
+        <link rel="stylesheet" href="{% static 'css/personal.css' %}">
+        <link href="https://adminlte.io/themes/AdminLTE/bower_components/select2/dist/css/select2.min.css" rel="stylesheet" />
+        <link href="https://adminlte.io/themes/AdminLTE/plugins/iCheck/all.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="{% static 'bower_components/Ionicons/css/ionicons.min.css' %}">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+        folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
+        <!-- Date Picker -->
+        <link rel="stylesheet" href="{% static 'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css' %}">
+        <!-- Daterange picker -->
+        <link rel="stylesheet" href="{% static 'bower_components/bootstrap-daterangepicker/daterangepicker.css' %}">
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link rel="stylesheet" href="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">
 
 
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="" class="logo">
-      <span class="logo-mini">Corp.</span>
-      <span class="logo-lg">Corporacion de Colina</span>
-    </a>
-    <nav class="navbar navbar-static-top">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script type="text/javascript">
+            function request(){
+                var docs = document.getElementById('id_docs').checked;
+                var tick = document.getElementById('id_tick').checked;
+                var admin = document.getElementById('id_admin').checked;
+                var dpts= $("#id_dpts").val();
+                var coment= $("#id_coment").val();
+                if (dpts == ''){
+                    alert('Favor seleccione algun departamento.')
+                }
+                if (coment == '') {
+                    coment = 'false'
+                }
 
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ request.session.avatar }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                var content = dpts+';'+docs+';'+tick+';'+ admin+';'+ coment;
+                alert( content );
+                document.getElementById('id_input').innerHTML ='<input hidden type="text" name="transfer" value="'+content+'" id="id_obj1" maxlength="250" />\n';
+                //document.getElementById("form").submit();
+            }
+        </script>
+    </head>
+
+    <body class="hold-transition skin-blue">
+        <header class="main-header">
+            <a href="" class="logo">
+                <span class="logo-mini">Corp.</span>
+                <span class="logo-lg">Corporacion de Colina</span>
             </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="{{ request.session.avatar }}" class="img-circle" alt="User Image">
+            <nav class="navbar navbar-static-top">
 
-                <p>
-                   {{ request.session.fullname }}
-                  <small>Correo electronico</small>
-                    {{ request.session.email }}
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="{{ request.session.avatar }}" class="user-image" alt="User Image">
+                                <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                            <!-- User image -->
+                                <li class="user-header">
+                                    <img src="{{ request.session.avatar }}" class="img-circle" alt="User Image">
 
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                Detalle
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-right">
-                  <a href="{% url 'auth:logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                    <p>
+                                    {{ request.session.fullname }}
+                                    <small>Correo electronico</small>
+                                    {{ request.session.email }}
+
+                                    </p>
+                                </li>
+                                <li class="user-body">
+                                    Detalle
+                                </li>
+                                <li class="user-footer">
+                                    <div class="pull-right">
+                                        <a href="{% url 'auth:logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <div class="content-wrapper" style="margin-left: 0px;">
-    <!-- Content Header (Page header) -->
-    <section class="content">
-        <h1>Bienvenido al sistema de <b>La Corporación de Colina</b>.</h1>
-        <h2>Nombre: {{ user.first_name }} {{ user.last_name }}</h2>
-        <h2>Correo: {{ request.session.email }}</h2>
-        <form method="post">
-            <div class="row">
-                 {% csrf_token %}
-
-                <div class="col-lg-4">
-                    <h3>Seleccione departamento </h3>
-                </div>
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <h5>
-                            <select class="form-control select2" onchange="mostrarValor(this);">
-                                {% for foo in departament %}
-                                    <option value="{{ foo.id }},">{{ foo }}</option>
-                                {% endfor %}
-
-                            </select>
-                        </h5>
+            </nav>
+        </header>
+        <div class="content-wrapper" align="center" style="margin-left: 0px;">
+        <!-- Content Header (Page header) -->
+            <section class="content">
+                <h2>Bienvenido al sistema de <b>La Corporación de Colina</b>.</h2>
+                <h3>Nombre: {{ request.session.fullname }}</h3>
+                <h3>Correo: {{ request.session.email }}</h3>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4>Seleccione departamento a solicitar accesos</h4>
                     </div>
                 </div>
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <h5>
-                            <select class="form-control select2" onchange="mostrarValor(this);" >
-                                <option value=""> ---- </option>
-                                {% for foo in departament %}
-                                    <option value="{{ foo.id }},">{{ foo }}</option>
-                                {% endfor %}
-
-                            </select>
-                        </h5>
+                <form method="POST" name="form" id="form">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group" align="center">
+                                <select class="select2" name="states[]" required multiple="multiple" id="id_dpts" style="width: 100%;">
+                                        {% for foo in departament %}
+                                            <option value="{{ foo.id }}">{{ foo }}</option>
+                                        {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <h5>
-                            <select class="form-control select2" onchange="mostrarValor(this);" >
-                                <option value=""> ---- </option>
-                                {% for foo in departament %}
-                                    <option value="{{ foo.id }},">{{ foo }}</option>
-                                {% endfor %}
-
-                            </select>
-                        </h5>
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-4" style="padding-left: 10%">
+                            <div class="form-group" align="left">
+                                <div>
+                                    <input type="checkbox" id="id_docs" class="minimal" >
+                                    Acceso a Documentos
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="id_tick" class="minimal" >
+                                    Acceso a Ticket de trabajos
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="id_admin" class="minimal" >
+                                    Acceso Administrativo
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <h5>
-                            <select class="form-control select2" onchange="mostrarValor(this);">
-                                <option value=""> ---- </option>
-                                {% for foo in departament %}
-                                    <option value="{{ foo.id }},">{{ foo }}</option>
-                                {% endfor %}
-                            </select>
-                        </h5>
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <div>
+                                    <h4>
+                                        Comentarios.
+                                    </h4>
+                                </div>
+                                <textarea class="form-group" id="id_coment" rows="3" cols="55" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
                     </div>
-                </div>
+                    <div align="center">
+                        <div id="id_input"></div>
+                        <button class="btn btn-primary" onclick="request()"> Solicitar</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <footer class="main-footer" style="margin-left: 0px;">
+            <div class="pull-right hidden-xs">
+                <b>Compilacion</b> {{ request.session.compilation }}
             </div>
-            <div id="divXCambiar">
-            </div>
-            <input type="submit" class="btn btn-primary" value="Guardar" >
-        </form>
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer" style="margin-left: 0px;">
-    <div class="pull-right hidden-xs">
-      <b>Compilacion</b> {{ request.session.compilation }}
-    </div>
-    <strong>Copyright &copy; 2017 <a href="">Oton</a>.</strong> All rights
-    reserved.
-  </footer>
+            <strong>Copyright &copy; 2017 <a href="">Oton</a>.</strong> All rights
+            reserved.
+        </footer>
+        <div class="control-sidebar-bg"></div>
+
+        <!-- jQuery 3 -->
+        <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="{% static 'bower_components/jquery-ui/jquery-ui.min.js' %}"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+          $.widget.bridge('uibutton', $.ui.button);
+        </script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+        <!-- Sparkline -->
+        <script src="{% static 'bower_components/jquery-sparkline/dist/jquery.sparkline.min.js' %}"></script>
+
+        <!-- jQuery Knob Chart -->
+        <script src="{% static 'bower_components/jquery-knob/dist/jquery.knob.min.js' %}"></script>
+        <!-- daterangepicker -->
+        <script src="{% static 'bower_components/moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'bower_components/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+        <!-- datepicker -->
+        <script src="{% static 'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
+        <!-- Slimscroll -->
+        <script src="{% static 'bower_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+        <!-- FastClick -->
+        <script src="{% static 'bower_components/fastclick/lib/fastclick.js' %}"></script>
+        <!-- AdminLTE App -->
+        <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 
 
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
+        <!-- CK Editor -->
+        <script src="{% static 'bower_components/ckeditor/ckeditor.js' %}"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
 
-<!-- jQuery 3 -->
-<script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{% static 'bower_components/jquery-ui/jquery-ui.min.js' %}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-
-<!-- Sparkline -->
-<script src="{% static 'bower_components/jquery-sparkline/dist/jquery.sparkline.min.js' %}"></script>
-
-<!-- jQuery Knob Chart -->
-<script src="{% static 'bower_components/jquery-knob/dist/jquery.knob.min.js' %}"></script>
-<!-- daterangepicker -->
-<script src="{% static 'bower_components/moment/min/moment.min.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-<!-- datepicker -->
-<script src="{% static 'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
-<!-- Slimscroll -->
-<script src="{% static 'bower_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-<!-- FastClick -->
-<script src="{% static 'bower_components/fastclick/lib/fastclick.js' %}"></script>
-<!-- AdminLTE App -->
-<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+        <script src="{% static 'js/print.js' %}"></script>
+        <script src="{% static 'js/printThis.js' %}"></script>
 
 
-<!-- CK Editor -->
-<script src="{% static 'bower_components/ckeditor/ckeditor.js' %}"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
+    <!-- Select2 -->
+        <script src="https://adminlte.io/themes/AdminLTE/bower_components/select2/dist/js/select2.full.min.js"></script>
+        <script src="https://adminlte.io/themes/AdminLTE/plugins/iCheck/icheck.min.js" ></script>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('.select2').select2();
 
-<script src="{% static 'js/print.js' %}"></script>
-<script src="{% static 'js/printThis.js' %}"></script>
-{% if edit %}
-    <script>
-      $(function () {
-        // Replace the <textarea id="editor1"> with a CKEditor
-        // instance, using default configuration.
-        CKEDITOR.replace('editor1')
-        //bootstrap WYSIHTML5 - text editor
-        $('.textarea').wysihtml5()
-      })
-    </script>
-{% endif %}
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+              checkboxClass: 'icheckbox_minimal-blue',
+              radioClass   : 'iradio_minimal-blue'
+            })
 
 
-<!-- Select2 -->
-<script src="https://adminlte.io/themes/AdminLTE/bower_components/select2/dist/js/select2.full.min.js"></script>
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-  })
-</script>
-</body>
+        });
+        </script>
+    </body>
 </html>
 

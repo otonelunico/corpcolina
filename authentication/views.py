@@ -4,11 +4,14 @@ from authentication.models import Logeado
 from django.contrib.auth import logout as auth_logout
 from django.core.urlresolvers import reverse_lazy
 from department.models import Departament
-from authentication.forms import DeptoForm
+from authentication.forms import TransferForm
 from documents.models import Document_type
 from corpcolina.settings import DEBUG
 
 from django.views.generic.base import TemplateView
+from django.views import View
+from django.core.mail import send_mail
+
 
 class ErrorPage(TemplateView):
     template_name = 'auth/error.html'
@@ -81,47 +84,43 @@ def NotCorporative(request):
         return True
 
 
-def newuser(request):
-    NotCorporative(request)
-    user = Logeado.objects.get(user=request.user)
-    request.session['fullname'] = user.user.first_name + ' ' + user.user.last_name
-    request.session['username'] = user.user.username
-    request.session['email'] = user.user.email
-    request.session['new'] = user.new
-    request.session['avatar'] = user.avatar
+class Newuser(View):
+    template = 'auth/new_user.html'
+    departament = Departament.objects.all().order_by('name')
 
+    def get(self, request):
+        NotCorporative(request)
+        user = Logeado.objects.get(user=request.user)
+        request.session['fullname'] = user.user.first_name + ' ' + user.user.last_name
+        request.session['username'] = user.user.username
+        request.session['email'] = user.user.email
+        request.session['new'] = user.new
+        request.session['avatar'] = user.avatar
+        departament = self.departament
+        return render(request, self.template, locals())
 
-    data={ 'departament' :Departament.objects.all().order_by('name')}
+    def post(self, request, **kwargs):
 
-    if request.method == 'GET':
-        data['form']= DeptoForm(instance=user)
-    else:
-        form = DeptoForm(request.POST, instance=user)
+        departament = self.departament
+        user = Logeado.objects.get(user=request.user)
+        form = TransferForm(request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
-            obj.new = False
-            dpt=str(obj.departament).split(",")
-            dpo=""
-            dps=""
-            for dp in dpt:
-                if dp != dps:
-                    dps=dp
-                    dp=dp+','
-                    if dpo =="":
-                        dpo=dp
-                    else:
-                        dpo = dpo+dp
-            print(str(obj.departament)+' -- > '+dpo)
-            obj.departament=dpo
-            obj.set_departament=  Departament.objects.get(id=str(dpo).split(",")[0]).id
-            request.session['new'] = False
-            form.save()
+            print(obj.transfer)
+            tra = obj.transfer.split(';')
+            tra += [user]
+            print(tra[5].id)
+            """send_mail("Solicitud",
+                      "Mensaje...nLinea 2nLinea3",
+                      '"origen" <origen@example.com>',
+                      ['ocubillos@corporacioncolina.cl'],
+                      fail_silently=False)"""
+            print(tra)
+            #request.session['new'] = False
+            #form.save()
         else:
             print(form.is_valid())
             print(form.errors)
-            form = DeptoForm(request.POST)
-        print(user)
-        return redirect(reverse_lazy('dashboard:dashboard'))
-
-    return render(request, 'auth/new_user.html', data)
+            form = TransferForm(request.POST)
+        return render(request, self.template, locals())
 

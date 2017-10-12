@@ -1,18 +1,11 @@
 from django import forms
-from authentication.models import Logeado
+from authentication.models import Logeado, Transfer
 
-class DeptoForm(forms.ModelForm):
 
-	class Meta:
-		model = Logeado
-		fields = [
-			'departament',
-		]
-		labels = {
-			'departament':'Departament',
 
-		}
-		widgets = {
-			'departament': forms.TextInput(attrs={'class':'form-control'}),
-
-		}
+class TransferForm(forms.ModelForm):
+    class Meta:
+        model = Transfer
+        fields = (
+            'transfer',
+        )

@@ -10,7 +10,12 @@ class Logeado(models.Model):
     departament = models.CharField(max_length=30)
     new = models.BooleanField(default=False)
     online = models.BooleanField(default=False)
+    docs = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
     set_departament=models.IntegerField(null=False)
 
     def __str__(self):
         return '{}'.format(self.user.username)
+
+class Transfer(models.Model):
+    transfer = models.TextField(null=False, blank=True)
