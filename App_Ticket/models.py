@@ -32,14 +32,14 @@ class Ticket(models.Model):
 	nom_contacto = models.CharField(max_length=50)
 	ape_contacto = models.CharField(max_length=50)
 	correo_contacto = models.EmailField()
-	fijo_contacto = models.IntegerField(blank=True)
-	celu_contacto = models.IntegerField( null=True, blank=True)
+	fijo_contacto = models.IntegerField(null=True, blank=True)
+	celu_contacto = models.IntegerField(null=True, blank=True)
 	resum_problema = models.CharField(max_length=100)
 	asignado = models.IntegerField( null=True, blank=True)
 	detall_problema = models.TextField()
 	fecha_creacion = models.DateTimeField(auto_now_add=True)
 	fecha_modificacion = models.DateTimeField(auto_now=True)
-	estado =  models.ForeignKey(Estado, null=False, blank=True, on_delete=models.CASCADE)
+	estado =  models.ForeignKey(Estado, null=False, blank=True, on_delete=models.CASCADE, default=1)
 	def __str__(self):
 		return '{}'.format(self.resum_problema)
 
