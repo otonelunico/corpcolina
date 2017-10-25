@@ -24,6 +24,7 @@ urlpatterns = [
     url('', include('dashboard.urls', namespace='dashboard')),
     url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
     url(r'^documentos/', include('documents.urls', namespace='document')),
+    url(r'^ticket/', include('App_Ticket.urls', namespace='ticket')),
     url('^api/v1/', include('social_django.urls', namespace='social')),
     url('^auth/', include('authentication.urls', namespace='auth')),
     url(r'^accounts/login/', include('authentication.urls')),

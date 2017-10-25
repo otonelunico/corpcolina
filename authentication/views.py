@@ -7,6 +7,7 @@ from department.models import Departament
 from authentication.forms import TransferForm
 from documents.models import Document_type
 from corpcolina.settings import DEBUG
+from administration.models import Req
 
 from django.views.generic.base import TemplateView
 from django.views import View
@@ -107,14 +108,30 @@ class Newuser(View):
         if form.is_valid():
             obj = form.save(commit=False)
             print(obj.transfer)
-            tra = obj.transfer.split(';')
+            tra = obj.transfer.replace('false', 'False')
+            tra = tra.replace('true', 'True')
+            tra = tra.split(';')
             tra += [user]
-            print(tra[5].id)
-            """send_mail("Solicitud",
-                      "Mensaje...nLinea 2nLinea3",
-                      '"origen" <origen@example.com>',
-                      ['ocubillos@corporacioncolina.cl'],
-                      fail_silently=False)"""
+            for ll in tra:
+                print(ll)
+            if Req.objects.filter(user=user).count() >0:
+                req = Req.objects.get(user=user)
+                req.dpts = tra[0]
+                req.docs = tra[1]
+                req.tick = tra[2]
+                req.admin = tra[3]
+                req.coment = tra[4]
+                req.save()
+            else:
+                Req.objects.create(
+                dpts = tra[0],
+                docs = tra[1],
+                tick = tra[2],
+                admin = tra[3],
+                coment = tra[4],
+                user = tra[5],
+            )
+
             print(tra)
             #request.session['new'] = False
             #form.save()

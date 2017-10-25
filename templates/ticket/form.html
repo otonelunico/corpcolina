@@ -1,0 +1,106 @@
+{% extends 'base/base.html' %}
+{% block title %} Nuevo{% endblock %}
+{% block header %}
+    <h1>
+        Ticket
+        <small>Nuevo.</small>
+    </h1>
+{% endblock header %}
+{% block content %}
+    <script>window.onload = function (){CKEDITOR.replace('id_detall_problema');};</script>
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Por favor, complete el siguiente formulario para crear un nuevo ticket.</h3>
+    </div>
+        <div class="box-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row" style="padding-top: 20px">
+                    <div class="col-lg-6">
+                        <h3>Seleccione tema.</h3>
+                        <select name="tema" class="form-control" id="id_tema">
+                            {% for ll in topics %}
+                                <option value="{{ ll.id }}" selected>{{ ll }}</option>
+                            {% endfor %}
+                        </select>
+                         <p align="right"><a href="{% url 'ticket:new_data' 'topic' %}">Nuevo</a></p>
+                    </div>
+                    <div class="col-md-6 ">
+                    <h3>Establecimiento de solicitud</h3>
+                        <select name="establecimiento" class="form-control" id="id_establecimiento">
+                            {% for ll in establishments %}
+                                <option value="{{ ll.id }}" selected>{{ ll }}</option>
+                            {% endfor %}
+                        </select>
+                    <p align="right"><a href="{% url 'ticket:new_data' 'establishment' %}">Nuevo</a></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h3>Informacion de contacto.</h3>
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 20px">
+                    <div class="col-lg-6">
+                        <label>Nombres</label>
+                        <input type="text" name="nom_contacto" value="{{ user.first_name }}" required class="form-control" id="id_nom_contacto" maxlength="50" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Apellidos</label>
+                        <input type="text" name="ape_contacto" value="{{ user.last_name }}" required class="form-control" id="id_ape_contacto" maxlength="50" />
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 20px">
+                    <div class="col-lg-6">
+                        <label>Correo electronico</label>
+                        <input type="text" name="correo_contacto" value="{{ request.session.email }}" class="form-control" id="id_correo_contacto" maxlength="254" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Telefono Fijo</label>
+                        <input type="text" name="fijo_contacto" value="{% ifnotequal 0 request.session.phone %} {{ request.session.phone }} {% endifnotequal %}" placeholder="Ej. 23232343" class="form-control" id="id_fijo_contacto" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Telefono Celular</label>
+                        <input type="text" name="celu_contacto" value="{% ifnotequal 0 request.session.cellphone %} {{ request.session.cellphone }} {% endifnotequal %}" placeholder="Ej. 934122887" class="form-control" id="id_celu_contacto" />
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 20px">
+                    <div class="col-lg-12">
+
+                        <h3>Datos del problema.</h3>
+                        <label>Asunto</label>
+                        <input type="text" name="resum_problema" required class="form-control" id="id_resum_problema" maxlength="100" style="max-width: 400px" />
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 20px">
+                    <div class="col-lg-12">
+                        <label>Detalle del problema.</label>
+                        <textarea name="detall_problema" required class="form-control" rows="10" id="id_detall_problema" cols="40">
+                            </textarea>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 20px">
+                    <div class="col-lg-6">
+                        <label>Estado del ticket.</label>
+                        <select name="estado" class="form-control" id="id_estado">
+                            {% for ll in states %}
+                                {% ifnotequal ll.titulo 'Nulo' %}
+                                    <option value="{{ ll.id }}" selected>{{ ll }}</option>
+                                {% endifnotequal %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <div align="right" style="padding-top: 20px">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a href="" class="btn btn-default" onclick="history.back();return false">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

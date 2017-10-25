@@ -1,0 +1,278 @@
+{% extends 'base/base.html' %}
+{% block title %} Estados de ticket{% endblock %}
+{% block header %}
+    <h1>
+        Ticket
+        <small>Estados.</small>
+    </h1>
+{% endblock header %}
+{% block content %}
+
+
+    <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-tag"></i> Estados</h3>
+        </div>
+        <div class="box-body ">
+
+
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-aqua">
+                    <div class="inner">
+                      <h3>{{ document_create }}</h3>
+
+                      <p>Documentos creados</p>
+                    </div>
+                    <div class="icon">
+                      <i class="fa ion-document-text"></i>
+                    </div>
+                    <a href="{% url 'document:documento_list' %}" class="small-box-footer">
+                      Ver todos <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                  </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-green">
+                    <div class="inner">
+                      <h3>{{ document_printed }}</h3>
+
+                      <p>Documentos impresos</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-printer"></i>
+                    </div>
+                    <a href="{% url 'document:documento_list_filter' 'printed' %}" class="small-box-footer">
+                      Ver todos <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                  </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-yellow">
+                    <div class="inner">
+                      <h3>{{ document_pending }}</h3>
+
+                      <p>Documentos pendientes</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-information-circled"></i>
+                    </div>
+                    <a href="{% url 'document:documento_list_filter' 'pending' %}" class="small-box-footer">
+                      Ver todos <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                  </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-red">
+                    <div class="inner">
+                      <h3>{{ document_null }}</h3>
+
+                      <p>Documentos nulos</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-android-cancel"></i>
+                    </div>
+                    <a href="{% url 'document:documento_list_filter' 'null' %}" class="small-box-footer">
+                      Ver todos <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                  </div>
+                </div>
+                <!-- ./col -->
+            </div>
+      </div>
+
+    </div>
+
+    <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-tag"></i> Ultimos documentos creados.</h3>
+        </div>
+        <div class="box-body template-list">
+            <div class="box-header with-border">
+                <div style="font-size: medium" class="list-header">
+                    <div class="row hidden-xs hidden-sm">
+                        <div class="col-md-1" align="center" >
+                            Id
+                        </div>
+                        <div class="col-md-3" align="center">
+                            Materia
+                        </div>
+                        <div class="col-md-3" align="center">
+                            Fecha
+                        </div>
+                        <div class="col-md-1" align="center">
+                            Tipo
+                        </div>
+                        <div class="col-md-4" align="center">
+                            Destinatario
+                        </div>
+                    </div>
+                    <div class="row hidden-lg hidden-xl  hidden-md">
+                        <div class="col-xs-2" align="center">
+                            Id
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            Materia
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            Fecha
+                        </div>
+                        <div class="col-xs-2" align="center">
+                            Tipo
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% for document in model %}
+                {% if document.activo %}
+            <div class="box-header with-border body-list">
+                <div data-toggle="collapse" data-parent="#accordion" href="#collapse{{ document.id }}" aria-expanded="false" class="collapsed" >
+                    <div class="row hidden-xs hidden-sm row-list">
+                        <div class="col-xs-1" align="center">
+                            {{ document.number }}/{{ document.year }}
+                        </div>
+                        <div class="col-xs-3" align="center">
+                            {{ document.matter }}
+                        </div>
+                        <div class="col-xs-3" align="center">
+                            {{ document.created_at.date }}
+                        </div>
+                        <div class="col-xs-1" align="center">
+                            {{ document.type }}
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            {{ document.receiver }}
+                        </div>
+                    </div>
+                    <div class="row hidden-lg hidden-xl  hidden-md row-list">
+                        <div class="col-xs-2" align="center">
+                            {{ document.number }}/{{ document.year }}
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            {{ document.matter }}
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            {{ document.created_at.day }}/{{ document.created_at.month }}/{{ document.created_at.year }}
+                        </div>
+                        <div class="col-xs-2" align="center">
+                            {{ document.type }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="collapse{{ document.id }}" class="panel-collapse collapse " aria-expanded="false" style="height: 0px; border-bottom: 2px solid #d2d6de">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6" align="center">
+                            <b>Documento N°{{ document.number }}/{{ document.year }}</b>
+                        </div>
+                        <div class="col-md-6" align="right">
+                        {% if document.print %}
+                            <a class="btn btn-block btn-primary " data-toggle="modal" data-target="#edit{{ document.id }}" style="display: inline">Editar</a>
+                            {% else %}
+                            <a class="btn btn-block btn-primary " href="{% url 'document:documento_edit' document.id %}" style="display: inline">Editar</a>
+                            {% endif %}
+                            <span style="padding-left: 20px"></span>
+                            <a class="btn btn-block btn-info " href="{% url 'document:documento_detalle' document.id %}" style="display: inline" >Ver</a>
+                            <span style="padding-left: 20px"></span>
+                            <a class="btn btn-block btn-success " href="{% url 'document:documento_impreso' document.id %}" style="display: inline"> {% if document.print %}Reimprimir{% else %}Imprimir{% endif %}</a>
+                            <span style="padding-left: 20px"></span>
+                            <!--<a class="btn btn-block btn-danger btn-sm" data-toggle="modal" data-target="#con{{ document.id }}" href="{% url 'document:active_off' 'documento' document.id %}" style="display: inline"> Anular</a> -->
+                            <a type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#conf{{ document.id }}" style="display: inline">
+                              Anular
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    <!-- Modal -->
+                <div class="modal modal-danger fade" id="conf{{ document.id }}" tabindex="-1" role="dialog" aria-labelledby="conf{{ document.id }}Label">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="conf{{ document.id }}Label">Anular Documento</h4>
+                      </div>
+                      <div class="modal-body">
+                        <h3> Esta seguro que desea anular el documento N°{{ document.id }}/{{ document.created_at.year }}</h3>
+                          <p>Si lo anula no se podra volder a acceder a el.</p>
+                      </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="location.href='{% url 'document:active_off' 'documento' document.id %}'">Anular</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    {% if document.print %}
+                    <div class="modal modal-warning fade in" id="edit{{ document.id }}" tabindex="-1" role="dialog" aria-labelledby="edit{{ document.id }}Label">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="edit{{ document.id }}Label">editar Documento</h4>
+                      </div>
+                      <div class="modal-body">
+                        <h3> Esta seguro que desea editar el documento N°{{ document.id }}/{{ document.created_at.year }} ya impreso?</h3>
+                          <p>Si edita este documento no podra volver atras.</p>
+                      </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="location.href='{% url 'document:documento_edit' document.id %}'">Editar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    {% endif %}
+                {% else %}
+                  <div class="box-header with-border ">
+                        <div data-toggle="collapse" aria-expanded="false" class="collapsed" style="color: #909090;cursor: not-allowed">
+                            <div class="row hidden-xs hidden-sm row-list">
+    <div class="col-xs-1" align="center">
+        {{ document.number }}/{{ document.year }}
+    </div>
+    <div class="col-xs-3" align="center">
+        {{ document.matter }}
+    </div>
+    <div class="col-xs-3" align="center">
+        {{ document.created_at.date }}
+    </div>
+    <div class="col-xs-1" align="center">
+        {{ document.type }}
+    </div>
+    <div class="col-xs-4" align="center">
+        {{ document.receiver }}
+    </div>
+</div>
+                            <div class="row hidden-lg hidden-xl  hidden-md row-list">
+                        <div class="col-xs-2" align="center">
+                            {{ document.number }}/{{ document.year }}
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            {{ document.matter }}
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            {{ document.created_at.day }}/{{ document.created_at.month }}/{{ document.created_at.year }}
+                        </div>
+                        <div class="col-xs-2" align="center">
+                            {{ document.type }}
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+{% endblock %}

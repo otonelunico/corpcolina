@@ -15,10 +15,12 @@ def Dashboard(request):
         return render(request, 'auth/error.html', data)
     else:
         user=Logeado.objects.get(user=request.user)
-
+        request.session['id'] = user.user.id
         request.session['fullname'] = user.user.first_name+' '+user.user.last_name
         request.session['username'] = user.user.username
         request.session['email'] = user.user.email
+        request.session['phone'] = user.phone
+        request.session['cellphone'] = user.cellphone
         request.session['new'] = user.new
         request.session['avatar'] = user.avatar
         try:
@@ -41,9 +43,13 @@ def Dashboard(request):
 
         if request.session['new'] == True:
             return redirect(reverse_lazy('auth:newuser'))
-
+        request.session['ticket'] = user.tick
+        request.session['docs'] = user.docs
         #return render(request, 'dashboard/dashboard.html')
-        return redirect(reverse_lazy('document:resume'))
+        if user.docs:
+            return redirect(reverse_lazy('document:resume'))
+        elif user.tick:
+            return redirect(reverse_lazy('ticket:states'))
 
 def SetDepartament(request, name):
     user = Logeado.objects.get(user=request.user)

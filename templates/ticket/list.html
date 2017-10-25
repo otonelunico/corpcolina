@@ -1,0 +1,134 @@
+{% extends 'base/base.html' %}
+{% block title %} Detalle de ticket{% endblock %}
+{% block header %}
+    <h1>
+        Ticket
+        <small>Listado.</small>
+    </h1>
+{% endblock header %}
+{% block content %}
+
+    <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-tag"></i> Todos lo tickets creados.</h3>
+        </div>
+        <div class="box-body template-list">
+            <div class="box-header with-border">
+                <div style="font-size: medium" class="list-header">
+                    <div class="row hidden-xs hidden-sm">
+                        <div class="col-md-1" align="center" >
+                            #
+                        </div>
+                        <div class="col-md-3" align="center">
+                            Solicitado
+                        </div>
+                        <div class="col-md-2" align="center">
+                            Tema
+                        </div>
+                        <div class="col-md-2" align="center">
+                            Problema
+                        </div>
+                        <div class="col-md-2" align="center">
+                            Estado
+                        </div>
+                        <div class="col-md-2" align="center">
+                            Fecha
+                        </div>
+                    </div>
+                    <div class="row hidden-lg hidden-xl  hidden-md">
+                        <div class="col-xs-2" align="center">
+                            Id
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            Materia
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            Fecha
+                        </div>
+                        <div class="col-xs-2" align="center">
+                            Tipo
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% for ticket in tickets %}
+            <div class="box-header with-border body-list">
+                <div data-toggle="collapse" data-parent="#accordion" href="#collapse{{ ticket.id }}" aria-expanded="false" class="collapsed" >
+                    <div class="row hidden-xs hidden-sm row-list">
+                        <div class="col-xs-1" align="center">
+                            {{ ticket.id }}
+                        </div>
+                        <div class="col-xs-3" align="center">
+                            {{ ticket.nom_contacto }} {{ ticket.ape_contacto }}
+                        </div>
+                        <div class="col-xs-2" align="center">
+                            {{ ticket.tema }}
+                        </div>
+                        <div class="col-xs-2" align="center">
+                            {{ ticket.resum_problema }}
+                        </div>
+                        <div class="col-xs-2" align="center">
+                            {{ ticket.estado }}
+                        </div>
+                        <div class="col-xs-2" align="center">
+                            {{ ticket.fecha_creacion }}
+                        </div>
+                    </div>
+                    <div class="row hidden-lg hidden-xl  hidden-md row-list">
+                        <div class="col-xs-2" align="center">
+                            {{ ticket.number }}/{{ ticket.year }}
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            {{ ticket.matter }}
+                        </div>
+                        <div class="col-xs-4" align="center">
+                            {{ ticket.created_at.date }}
+                        </div>
+                        <div class="col-xs-2" align="center">
+                            {{ ticket.type }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="collapse{{ ticket.id }}" class="panel-collapse collapse " aria-expanded="false" style="height: 0px; border-bottom: 2px solid #d2d6de">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6" align="center">
+                            <b>Ticket N°{{ ticket.id }}</b>
+                        </div>
+                        <div class="col-md-6" align="right">
+                            <a class="btn btn-block btn-info " href="{% url 'ticket:detail' ticket.id %}" style="display: inline" >Ver</a>
+                            <span style="padding-left: 20px"></span>
+                            <a class="btn btn-block btn-success " href="" style="display: inline"> {% if ticket.print %}Reimprimir{% else %}Imprimir{% endif %}</a>
+                            <span style="padding-left: 20px"></span>
+                            <a type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#conf{{ ticket.id }}" style="display: inline">
+                              Anular
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal modal-danger fade" id="conf{{ ticket.id }}" tabindex="-1" role="dialog" aria-labelledby="conf{{ ticket.id }}Label">
+                  <div class="modal-dialog" role="ticket">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="conf{{ ticket.id }}Label">Anular Documento</h4>
+                      </div>
+                      <div class="modal-body">
+                        <h3> Esta seguro que desea anular el ticketo N°{{ ticket.id }}/{{ ticket.created_at.year }}</h3>
+                          <p>Si lo anula no se podra volder a acceder a el.</p>
+                      </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="location.href=''">SI</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock content %}

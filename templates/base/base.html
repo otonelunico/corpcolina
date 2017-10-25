@@ -193,13 +193,23 @@
 
           </ul>
         </li>
-        <li class="header">Menu de navegacion</li>
+      {% if request.session.docs %}
+        <li class="header">Documentos</li>
 
-       <!-- <li><a href="{% url 'dashboard:dashboard' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li> -->
         <li><a href="{% url 'document:resume' %}"><i class="fa fa-dashboard"></i> <span>Resumen</span></a></li>
         <li><a href="{% url 'document:document_form' %}"><i class="fa fa-circle-o"></i> <span>Nuevo</span></a></li>
         <li><a href="{% url 'document:documento_list' %}"><i class="fa fa-circle-o"></i> <span>Listado documentos</span></a></li>
         <li><a href="{% url 'document:documento_personalized' %}"><i class="fa fa-circle-o"></i> <span>Listar Agrupados</span></a></li>
+      {% endif %}
+      {% if request.session.ticket %}
+
+        <li class="header">Ticket de trabajo</li>
+        <li><a href="{% url 'ticket:states' %}"><i class="fa fa-dashboard"></i> <span>Estados</span></a></li>
+        <li><a href="{% url 'ticket:new' %}"><i class="fa fa-circle-o"></i> <span>Nuevo</span></a></li>
+        <li><a href="{% url 'ticket:states' %}"><i class="fa fa-circle-o"></i> <span>Listado</span></a></li>
+        <li><a href=""><i class="fa fa-circle-o"></i> <span>Seguimiento</span></a></li>
+
+      {% endif %}
       </ul>
     </section>
     <!-- /.sidebar -->

@@ -12,7 +12,10 @@ class Logeado(models.Model):
     online = models.BooleanField(default=False)
     docs = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
+    tick = models.BooleanField(default=False)
     set_departament=models.IntegerField(null=False)
+    phone = models.IntegerField(default=0)
+    cellphone = models.IntegerField(default=0)
 
     def __str__(self):
         return '{}'.format(self.user.username)
