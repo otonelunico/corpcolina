@@ -84,13 +84,7 @@
                 <div class="row" style="padding-top: 20px">
                     <div class="col-lg-6">
                         <label>Estado del ticket.</label>
-                        <select name="estado" class="form-control" id="id_estado">
-                            {% for ll in states %}
-                                {% ifnotequal ll.titulo 'Nulo' %}
-                                    <option value="{{ ll.id }}" selected>{{ ll }}</option>
-                                {% endifnotequal %}
-                            {% endfor %}
-                        </select>
+                        <p>Pendiente</p>
                     </div>
                     <div class="col-lg-6">
                         <div align="right" style="padding-top: 20px">
