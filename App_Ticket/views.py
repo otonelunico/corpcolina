@@ -94,7 +94,7 @@ class DetailTicket(View):
         else:
             print(form.is_valid())
             print(form.errors)
-        return render(request, self.template, locals())
+        return redirect('ticket:detail', kwargs['id'])
 
 class ListTicket(View):
     template = 'ticket/list.html'

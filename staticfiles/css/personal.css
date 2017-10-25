@@ -15,3 +15,6 @@
 .template-list {
     background-color: transparent;
 }
+label{
+    min-font-size: 12pc;
+}
