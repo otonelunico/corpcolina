@@ -16,5 +16,6 @@
     background-color: transparent;
 }
 label{
-    min-font-size: 12pc;
+    min-font-size: 14pc;
+    font-style: normal;
 }
