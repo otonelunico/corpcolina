@@ -100,5 +100,5 @@ class ListTicket(View):
     template = 'ticket/list.html'
 
     def get(self, request):
-        tickets = Ticket.objects.all()
+        tickets = Ticket.objects.filter(usuario=request.user).order_by('id')
         return render(request, self.template, locals())

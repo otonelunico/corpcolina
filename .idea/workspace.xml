@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="667726ee-98a8-4003-9653-a2f289f58421" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/staticfiles/css/personal.css" afterPath="$PROJECT_DIR$/staticfiles/css/personal.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App_Ticket/models.py" afterPath="$PROJECT_DIR$/App_Ticket/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App_Ticket/views.py" afterPath="$PROJECT_DIR$/App_Ticket/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/ticket/detail.html" afterPath="$PROJECT_DIR$/templates/ticket/detail.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -75,18 +78,38 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App_Ticket/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="31" column="50" lean-forward="false" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
+            <state relative-caret-position="251">
+              <caret line="52" column="29" lean-forward="true" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/authentication/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="183">
+              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/documents/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="901">
+              <caret line="55" column="34" lean-forward="true" selection-start-line="55" selection-start-column="34" selection-end-line="57" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/App_Ticket/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="96" column="8" lean-forward="false" selection-start-line="96" selection-start-column="8" selection-end-line="96" selection-end-column="8" />
+            <state relative-caret-position="279">
+              <caret line="93" column="13" lean-forward="true" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="13" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
                 <element signature="e#356#473#0" expanded="false" />
@@ -98,9 +121,12 @@
       <file leaf-file-name="detail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/ticket/detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="-276">
+              <caret line="82" column="49" lean-forward="true" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="49" />
+              <folding>
+                <element signature="e#3160#3185#0#HTML" expanded="true" />
+                <element signature="e#3535#3562#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,16 +136,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
               <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="personal.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/staticfiles/css/personal.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -151,18 +167,6 @@
             <state relative-caret-position="186">
               <caret line="1736" column="15" lean-forward="false" selection-start-line="1736" selection-start-column="15" selection-end-line="1736" selection-end-column="15" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/App_Ticket/admin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -280,14 +284,14 @@
         <option value="$PROJECT_DIR$/App_Ticket/urls.py" />
         <option value="$PROJECT_DIR$/templates/ticket/list.html" />
         <option value="$PROJECT_DIR$/App_Ticket/admin.py" />
-        <option value="$PROJECT_DIR$/App_Ticket/models.py" />
-        <option value="$PROJECT_DIR$/App_Ticket/views.py" />
         <option value="$PROJECT_DIR$/static/css/personal.css" />
         <option value="$PROJECT_DIR$/static/dist/css/AdminLTE.css" />
         <option value="$PROJECT_DIR$/templates/ticket/form.html" />
         <option value="$PROJECT_DIR$/staticfiles/dist/css/AdminLTE.css" />
-        <option value="$PROJECT_DIR$/templates/ticket/detail.html" />
         <option value="$PROJECT_DIR$/staticfiles/css/personal.css" />
+        <option value="$PROJECT_DIR$/templates/ticket/detail.html" />
+        <option value="$PROJECT_DIR$/App_Ticket/models.py" />
+        <option value="$PROJECT_DIR$/App_Ticket/views.py" />
       </list>
     </option>
   </component>
@@ -356,23 +360,22 @@
             <path>
               <item name="corpcolina" type="b2602c69:ProjectViewProjectNode" />
               <item name="corpcolina" type="462c0819:PsiDirectoryNode" />
+              <item name="administration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="corpcolina" type="b2602c69:ProjectViewProjectNode" />
+              <item name="corpcolina" type="462c0819:PsiDirectoryNode" />
               <item name="App_Ticket" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="corpcolina" type="b2602c69:ProjectViewProjectNode" />
               <item name="corpcolina" type="462c0819:PsiDirectoryNode" />
-              <item name="documents" type="462c0819:PsiDirectoryNode" />
+              <item name="authentication" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="corpcolina" type="b2602c69:ProjectViewProjectNode" />
               <item name="corpcolina" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="corpcolina" type="b2602c69:ProjectViewProjectNode" />
-              <item name="corpcolina" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="corpcolina" type="b2602c69:ProjectViewProjectNode" />
@@ -476,13 +479,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1502287648017</updated>
-    </task>
-    <task id="LOCAL-00009" summary="v-">
-      <created>1502986776646</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1502986776646</updated>
     </task>
     <task id="LOCAL-00010" summary="v-">
       <created>1502988248334</created>
@@ -820,7 +816,14 @@
       <option name="project" value="LOCAL" />
       <updated>1508956346610</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="test 1">
+      <created>1508956534332</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1508956534332</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -851,7 +854,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31774193" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31774193" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3121212" sideWeight="0.509009" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -936,14 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documents/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="55" column="34" lean-forward="true" selection-start-line="55" selection-start-column="34" selection-end-line="57" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/administration/migrations/0003_auto_20171012_1317.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -969,16 +964,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/administration/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="56" lean-forward="false" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#28#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1052,14 +1037,6 @@
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/authentication/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="45" lean-forward="false" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1223,13 +1200,13 @@
         <state relative-caret-position="251">
           <caret line="99" column="60" lean-forward="false" selection-start-line="99" selection-start-column="60" selection-end-line="99" selection-end-column="60" />
           <folding>
-            <element signature="e#4132#4185#0#HTML" expanded="true" />
-            <element signature="e#4584#4607#0#HTML" expanded="true" />
-            <element signature="e#4651#4677#0#HTML" expanded="true" />
-            <element signature="e#4760#4783#0#HTML" expanded="true" />
-            <element signature="e#4884#4910#0#HTML" expanded="true" />
-            <element signature="e#5052#5075#0#HTML" expanded="true" />
-            <element signature="e#5674#5681#1#HTML" expanded="true" />
+            <element signature="e#4132#4185#0#HTML" expanded="false" />
+            <element signature="e#4584#4607#0#HTML" expanded="false" />
+            <element signature="e#4651#4677#0#HTML" expanded="false" />
+            <element signature="e#4760#4783#0#HTML" expanded="false" />
+            <element signature="e#4884#4910#0#HTML" expanded="false" />
+            <element signature="e#5052#5075#0#HTML" expanded="false" />
+            <element signature="e#5674#5681#1#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1273,25 +1250,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App_Ticket/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="31" column="50" lean-forward="false" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App_Ticket/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="96" column="8" lean-forward="false" selection-start-line="96" selection-start-column="8" selection-end-line="96" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-            <element signature="e#356#473#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/dist/css/AdminLTE.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -1300,26 +1258,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/ticket/form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/staticfiles/dist/css/AdminLTE.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="1736" column="17" lean-forward="false" selection-start-line="1736" selection-start-column="17" selection-end-line="1736" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/ticket/detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1337,6 +1279,68 @@
         <state relative-caret-position="323">
           <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/ticket/form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/administration/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="13" column="56" lean-forward="false" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App_Ticket/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="52" column="29" lean-forward="true" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/ticket/detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-276">
+          <caret line="82" column="49" lean-forward="true" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="49" />
+          <folding>
+            <element signature="e#3160#3185#0#HTML" expanded="true" />
+            <element signature="e#3535#3562#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="55" column="34" lean-forward="true" selection-start-line="55" selection-start-column="34" selection-end-line="57" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App_Ticket/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="93" column="13" lean-forward="true" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+            <element signature="e#356#473#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
