@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('', include('dashboard.urls', namespace='dashboard')),
+    url(r'^administrator/', include('App_Admin.urls', namespace='administrator')),
     url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
     url(r'^documentos/', include('documents.urls', namespace='document')),
     url(r'^ticket/', include('App_Ticket.urls', namespace='ticket')),

@@ -4,6 +4,7 @@ from django.views import View
 from .models import Tema, Establecimiento, Tecnico, Estado, Ticket, Respuestas
 from django.utils.safestring import mark_safe
 from authentication.models import Logeado
+from authentication.views import userAdmin
 
 class State(View):
     template = 'ticket/states.html'
@@ -101,4 +102,12 @@ class ListTicket(View):
 
     def get(self, request):
         tickets = Ticket.objects.filter(usuario=request.user).order_by('id')
+        return render(request, self.template, locals())
+
+class AllListTicket(View):
+    template = 'ticket/list.html'
+
+    def get(self, request):
+        userAdmin(request)
+        tickets = Ticket.objects.all().order_by('id')
         return render(request, self.template, locals())

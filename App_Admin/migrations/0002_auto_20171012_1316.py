@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('administration', '0001_initial'),
+        ('App_Admin', '0001_initial'),
     ]
 
     operations = [

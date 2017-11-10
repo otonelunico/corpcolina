@@ -35,9 +35,6 @@ class Document_type(models.Model):
 
         return self.titulo
 
-
-
-
 class Document(models.Model):
     type = models.ForeignKey(Document_type, null=False, blank=True, on_delete=models.CASCADE)
     number = models.IntegerField(null=False)

@@ -7,7 +7,7 @@ from department.models import Departament
 from authentication.forms import TransferForm
 from documents.models import Document_type
 from corpcolina.settings import DEBUG
-from administration.models import Req
+from App_Admin.models import Req
 
 from django.views.generic.base import TemplateView
 from django.views import View
@@ -21,11 +21,13 @@ class ErrorPage(TemplateView):
 def index(request):
     return render(request, 'index.html')
 
-def Set_data(request, backend, strategy, details, is_new, response,
-               *args, **kwargs):
-    user = User.objects.get(username=details['username'])
-    if str(user.email).split("@")[1] == 'gmail.com':
+def Set_data(request, backend, strategy, details, is_new, response, *args, **kwargs):
+    print(kwargs['uid'].split("@")[1])
+    #user = User.objects.get(username=details['username'])
+    if kwargs['uid'].split("@")[1] != 'corporacioncolina.cl':
         print('gmail')
+
+    """
     else:
         if Logeado.objects.filter(user=user):
             ll = Logeado.objects.get(user=user)
@@ -61,9 +63,7 @@ def Set_data(request, backend, strategy, details, is_new, response,
                                     set_departament = 1,
                                     online = True)
 
-    print('Salio')
-
-from django.contrib.sessions.models import Session
+    print('Salio')"""
 
 def logout(request):
     if NotCorporative(request):
@@ -78,12 +78,9 @@ def logout(request):
     auth_logout(request)
     return render(request, 'auth/logout.html')
 
-
 def NotCorporative(request):
     if str(User.objects.get(username=request.user).email).split("@")[1] != 'corporacioncolina.cl':
-
         return True
-
 
 class Newuser(View):
     template = 'auth/new_user.html'
@@ -112,8 +109,6 @@ class Newuser(View):
             tra = tra.replace('true', 'True')
             tra = tra.split(';')
             tra += [user]
-            for ll in tra:
-                print(ll)
             if Req.objects.filter(user=user).count() >0:
                 req = Req.objects.get(user=user)
                 req.dpts = tra[0]
@@ -141,3 +136,7 @@ class Newuser(View):
             form = TransferForm(request.POST)
         return render(request, self.template, locals())
 
+def userAdmin(request):
+    if Logeado.objects.get(user=request.user):
+        print("sii")
+        return render(request, 'document/form.html')

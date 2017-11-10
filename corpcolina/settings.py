@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'dashboard',
     'App_Ticket',
     'department',
-    'administration',
+    'App_Admin',
     'django_extensions',
 ]
 

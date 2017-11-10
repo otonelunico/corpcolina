@@ -8,7 +8,6 @@ from authentication.views import NotCorporative
 def Dashboard(request):
     if NotCorporative(request)== True:
         request.session['email']=request.user.email
-        print('Not Corporative')
         data = {'title': 'Cuenta no corporativa',
                 'messages': 'Su cuenta de correo es '+request.session['email']+' favor iniciar secion con cuenta adecuada.',
                 'action': 'Cerrar Seccion'}
@@ -16,6 +15,8 @@ def Dashboard(request):
     else:
         user=Logeado.objects.get(user=request.user)
         request.session['id'] = user.user.id
+        if user.user.is_superuser:
+            request.session['is_superuser'] = user.user.is_superuser
         request.session['fullname'] = user.user.first_name+' '+user.user.last_name
         request.session['username'] = user.user.username
         request.session['email'] = user.user.email
@@ -33,12 +34,14 @@ def Dashboard(request):
 
         request.session['departament']['id'] = str(user.departament).split(",")
         request.session['departament']['active_id'] = user.set_departament
-        request.session['departament']['active'] = Departament.objects.get(id=user.set_departament).name
+        request.session['departament']['active'] = { 'id' : Departament.objects.get(id=user.set_departament).id,
+                                                     'name': Departament.objects.get(id=user.set_departament).name}
         request.session['departament']['list'] =[]
         for lo in request.session['departament']['id']:
             if lo != "":
-                request.session['departament']['list']+=[Departament.objects.get(id=int(lo)).name]
-
+                request.session['departament']['list']+=[{'id' : Departament.objects.get(id=int(lo)).id,
+                                                         'name': Departament.objects.get(id=int(lo)).name}]
+        print(request.session['departament']['list'])
         request.session['alert'] = None
 
         if request.session['new'] == True:
@@ -53,7 +56,7 @@ def Dashboard(request):
 
 def SetDepartament(request, name):
     user = Logeado.objects.get(user=request.user)
-    user.set_departament=Departament.objects.get(name=name).id
+    user.set_departament=Departament.objects.get(id=name).id
 
     print(Logeado.objects.get(user=request.user).set_departament)
     user.save()
