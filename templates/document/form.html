@@ -9,11 +9,6 @@
 {% block content %}
 
 <script>
-window.onload = function ()
-{
-    CKEDITOR.replace('editor1');
-
-};
 </script>
 <div class="box box-primary">
     <div class="box-header with-border">
@@ -25,144 +20,140 @@ window.onload = function ()
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    <form method="post" name="Form1">
+    <form method="post" name="form1">
         {% csrf_token %}
-      <div class="box-body">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-5">
+        <div class="box-body">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-5">
 
-                    <h3>Fecha: {{ date.nday }}, {{ date.day }} de {{ date.month }} del {{ date.year }}</h3>
-                </div>
-                <div class="col-md-2">
+                        <h4>Fecha: {{ date.nday }}, {{ date.day }} de {{ date.month }} del {{ date.year }}</h4>
+                    </div>
+                    <div class="col-md-2">
 
-                </div>
-                <div class="col-md-5">
-                    Anterior
-                    <select class="form-control" name="previous">
-                        {% if previous %}
-                            <option value="{{ previous.id }}">{{ previous.matter }}</option>
-                        {% endif %}
-                            <option value="0">No Anterior</option>
-                        {% for foo in doc_for_dept %}
-                            <option value="{{ foo.id }}">{{ foo.matter }}</option>
-                        {% endfor %}
+                    </div>
+                    <div class="col-md-5">
+                        Anterior
+                        <select class="form-control" name="previous">
+                            {% if previous %}
+                                <option value="{{ previous.id }}">{{ previous.matter }}</option>
+                            {% endif %}
+                                <option value="0">No Anterior</option>
+                            {% for foo in doc_for_dept %}
+                                <option value="{{ foo.id }}">{{ foo.matter }}</option>
+                            {% endfor %}
 
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row" id="divXCambiar">
-            {% if model.change %}
-                <div class="col-md-5">
-
-                Destinatario
-                    <select class="form-control" name="receiver">
-                    {% if editdoc %}
-                        <option value="{{ model.receiver.id }}{{ receiver.id }}">{{ model.receiver }}</option>
-                    {% endif %}
-                        {% for foo in receiver %}
-                            <option value="{{ foo.id }}">{{ foo }}</option>
-                        {% endfor %}
-
-                    </select>
-                <p align="right"><a href="{% url 'document:create_value' 'receiver' %}">Mantenedor de destinatarios</a></p>
-
-                </div>
-                <div class="col-md-2" align="center" style="padding-top: 20px">
-                    <div class="btn btn-default" onClick="cambiar();" style="display: none;"  id="cambiar"><i class="fa fa-exchange"></i></div>
-                    <div class="btn btn-default" onClick="volver();" id="volver"><i class="fa fa-exchange"></i></div>
-                </div>
-                <div class="col-md-5">
-                Remitente
-                    <select class="form-control" name="remittent">
-                        {% if editdoc  %}
-                            <option value="{{ model.remittent.id }}">{{ receiver.last_name }}</option>
-                        {% endif %}
-                        {% for foo in remittent %}
-                            <option value="{{ foo.id }}">{{ foo }}</option>
-                        {% endfor %}
-
-                    </select>
-                <p align="right"><a href="{% url 'document:create_value' 'remittent' %}">Mantenedor de remitentes</a></p>
-
-                </div>
-            {% else %}
-                <div class="col-md-5">
-                Remitente
-                    <select class="form-control" name="remittent">
-                        {% if editdoc  %}
-                            <option value="{{ model.remittent.id }}">{{ model.remittent }}</option>
-                        {% endif %}
-                        {% for foo in remittent %}
-                            <option value="{{ foo.id }}">{{ foo }}</option>
-                        {% endfor %}
-
-                    </select>
-                <p align="right"><a href="{% url 'document:create_value' 'remittent' %}">Mantenedor de remitentes</a></p>
-
-                </div>
-                <div class="col-md-2" align="center" style="padding-top: 20px">
-                    <div class="btn btn-default" onClick="cambiar();" id="cambiar"><i class="fa fa-exchange"></i></div>
-                    <div class="btn btn-default" onClick="volver();" style="display: none;" id="volver"><i class="fa fa-exchange"></i></div>
-                </div>
-                <div class="col-md-5">
-
-                Destinatario
-                    <select class="form-control" name="receiver">
-                    {% if editdoc %}
-                        <option value="{{ model.receiver.id }}">{{ model.receiver }}</option>
-                    {% endif %}
-                        {% for foo in receiver %}
-                            <option value="{{ foo.id }}">{{ foo }}</option>
-                        {% endfor %}
-
-                    </select>
-                <p align="right"><a href="{% url 'document:create_value' 'receiver' %}">Mantenedor de destinatarios</a></p>
-
-                </div>
-            {% endif %}
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    Materia:
-                    {{   form.matter }}
-                </div>
-                <div class="col-md-2">
-
-                </div>
-                <div class="col-md-5">
-                    Tipo de documento
-                    <select name="type" class="form-control" id="id_type">
-                    {% if editdoc %}
-                         <option value="{{ model.type.id }}">{{ model.type }}</option>
-                    {% endif %}
-                        {% for foo in type %}
-                            <option value="{{ foo.id }}">{{ foo }}</option>
-                        {% endfor %}
-
-                    </select>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="form-group">
+                <div class="row" id="divXCambiar">
+                {% if model.change or change%}
+                    <div class="col-md-5">
 
-        <div class="form-group">
-            Contenido.
-            <textarea id="editor1" name="body" rows="10" cols="80">
-                {%  if editdoc %}
-                    {{ model.body }}
+                    Destinatario
+                        <select class="form-control" name="receiver">
+                        {% if editdoc %}
+                            <option value="{{ model.receiver.id }}{{ receiver.id }}">{{ model.receiver }}</option>
+                        {% endif %}
+                            {% for foo in receiver %}
+                                <option value="{{ foo.id }}">{{ foo }}</option>
+                            {% endfor %}
+
+                        </select>
+                    <p align="right"><a href="{% url 'document:create_value' 'receiver' %}">Mantenedor de destinatarios</a></p>
+
+                    </div>
+                    <div class="col-md-2" align="center" style="padding-top: 20px">
+                        <div class="btn btn-default" onClick="cambiar();" style="display: none;"  id="cambiar"><i class="fa fa-exchange"></i></div>
+                        <div class="btn btn-default" onClick="volver();" id="volver"><i class="fa fa-exchange"></i></div>
+                    </div>
+                    <div class="col-md-5">
+                    Remitente
+                        <select class="form-control" name="remittent">
+                            {% if editdoc  %}
+                                <option value="{{ model.remittent.id }}">{{ receiver.last_name }}</option>
+                            {% endif %}
+                            {% for foo in remittent %}
+                                <option value="{{ foo.id }}">{{ foo }}</option>
+                            {% endfor %}
+
+                        </select>
+                    <p align="right"><a href="{% url 'document:create_value' 'remittent' %}">Mantenedor de remitentes</a></p>
+
+                    </div>
+                {% else %}
+                    <div class="col-md-5">
+                    Remitente
+                        <select class="form-control" name="remittent">
+                            {% if editdoc  %}
+                                <option value="{{ model.remittent.id }}">{{ model.remittent }}</option>
+                            {% endif %}
+                            {% for foo in remittent %}
+                                <option value="{{ foo.id }}">{{ foo }}</option>
+                            {% endfor %}
+
+                        </select>
+                    <p align="right"><a href="{% url 'document:create_value' 'remittent' %}">Mantenedor de remitentes</a></p>
+
+                    </div>
+                    <div class="col-md-2" align="center" style="padding-top: 20px">
+                        <div class="btn btn-default" onClick="cambiar();" id="cambiar"><i class="fa fa-exchange"></i></div>
+                        <div class="btn btn-default" onClick="volver();" style="display: none;" id="volver"><i class="fa fa-exchange"></i></div>
+                    </div>
+                    <div class="col-md-5">
+
+                    Destinatario
+                        <select class="form-control" name="receiver">
+                        {% if editdoc %}
+                            <option value="{{ model.receiver.id }}">{{ model.receiver }}</option>
+                        {% endif %}
+                            {% for foo in receiver %}
+                                <option value="{{ foo.id }}">{{ foo }}</option>
+                            {% endfor %}
+
+                        </select>
+                    <p align="right"><a href="{% url 'document:create_value' 'receiver' %}">Mantenedor de destinatarios</a></p>
+
+                    </div>
                 {% endif %}
-            </textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        Materia:
+                        <input type="text" class="form">
+                        {{   form.matter }}
+                    </div>
+                    <div class="col-md-2">
 
-        </div>
+                    </div>
+                    <div class="col-md-5">
+                        Tipo de documento
+                        <select name="type" class="form-control" id="id_type">
+                        {% if editdoc %}
+                             <option value="{{ model.type.id }}">{{ model.type }}</option>
+                        {% endif %}
+                            {% for foo in type %}
+                                <option value="{{ foo.id }}">{{ foo }}</option>
+                            {% endfor %}
 
-<div class="form-group">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                Contenido.
+                <textarea id="editor1" name=body rows="10" cols="80" minlength="11" required>
+                    {%  if editdoc %}
+                        {{ model.body }}
+                    {% endif %}
+                </textarea>
+            </div>
+            <div class="form-group">
             Pie de pagina.
             <textarea class="form-control" name="footer" cols="33" rows="5">{{ model.footer|safe }}</textarea>
         </div>
-
-
         </div>
 
         <div class="box-footer" align="right">
@@ -170,91 +161,81 @@ window.onload = function ()
             <button type="reset" class="btn btn-default">Borrar</button>
         </div>
     </form>
-
 </div>
-
-
 <script>
-function cambiar()
-{
+    function cambiar()
+    {
+      document.getElementById('divXCambiar').innerHTML = "                " +
+          "                <div class=\"col-md-5 \">\n" +
+          "                Destinatario\n" +
+          "                    <select class=\"form-control\" name=\"receiver\">\n" +
+          "                    {% if editdoc %}\n"+
+              "                        <option value=\"{{ model.receiver.id }}\">{{ model.receiver }}</option>\n"+
+              "                    {% endif %}\n" +
+          "                        {% for foo in receiver %}\n"+
+              "                            <option value=\"{{ foo.id }}\">{{ foo }}</option>\n"+
+              "                        {% endfor %}\n" +
+          "                    </select>\n" +
+          "                <p align=\"right\"><a href=\"{% url 'document:create_value' 'receiver' %}\">Mantenedor de destinatarios</a></p>\n" +
+          "                </div>\n" +
+          "                <div class=\"col-md-2\" align=\"center\" style=\"padding-top: 20px\">\n" +
+          "                    <div class=\"btn btn-default\" onClick=\"cambiar();\" id=\"cambiar\"><i class=\"fa fa-exchange\"></i></div>\n" +
+          "                    <div class=\"btn btn-default\" onClick=\"volver();\" style=\"display: none;\" id=\"volver\"><i class=\"fa fa-exchange\"></i></div>\n" +
+          "                </div>\n" +
+          "             <div class=\"col-md-5\">\n" +
+          "                Remitente\n" +
+          "                    <select class=\"form-control\" name=\"remittent\">\n" +
+          "                        {% if editdoc  %}\n"+
+              "                            <option value=\"{{ model.remittent.id }}\">{{ model.remittent }}</option>\n"+
+              "                        {% endif %}\n" +
+          "                        {% for foo in remittent %}\n"+
+              "                            <option value=\"{{ foo.id }}\">{{ foo }}</option>\n"+
+              "                        {% endfor %}\n" +
+          "                    </select>\n" +
+          "                <p align=\"right\"><a href=\"{% url 'document:create_value' 'remittent' %}\">Mantenedor de remitentes</a></p>\n" +
+          "                </div>\n" +
+          "<input class=\"hidden\" type=\"checkbox\" name=\"change\" id=\"id_change\" checked >";
+          $("#volver").show();
+          $("#cambiar").hide();
+    }
+    function volver()
+    {
+      document.getElementById('divXCambiar').innerHTML = "\n" +
+          "                <div class=\"col-md-5\">\n" +
+          "                Remitente\n" +
+          "                    <select class=\"form-control\" name=\"remittent\">\n" +
+          "                        {% if editdoc  %}\n"+
+              "                            <option value=\"{{ model.remittent.id }}\">{{ model.remittent }}</option>\n"+
+              "                        {% endif %}\n" +
+          "                        {% for foo in remittent %}\n"+
+              "                            <option value=\"{{ foo.id }}\">{{ foo }}</option>\n"+
+              "                        {% endfor %}\n" +
+          "                    </select>\n" +
+          "                <p align=\"right\"><a href=\"{% url 'document:create_value' 'remittent' %}\">Mantenedor de remitentes</a></p>\n" +
+          "                </div>\n" +
+          "                <div class=\"col-md-2\" align=\"center\" style=\"padding-top: 20px\">\n" +
+          "                    <div class=\"btn btn-default\" onClick=\"cambiar();\" id=\"cambiar\"><i class=\"fa fa-exchange\"></i></div>\n" +
+          "                    <div class=\"btn btn-default\" onClick=\"volver();\" style=\"display: none;\" id=\"volver\"><i class=\"fa fa-exchange\"></i></div>\n" +
+          "                </div>\n" +
+          "                <div class=\"col-md-5\">\n" +
+          "                Destinatario\n" +
+          "                    <select class=\"form-control\" name=\"receiver\">\n" +
+          "                    {% if editdoc %}\n"+
+              "                        <option value=\"{{ model.receiver.id }}\">{{ model.receiver }}</option>\n"+
+              "                    {% endif %}\n" +
+          "                        {% for foo in receiver %}\n"+
+              "                            <option value=\"{{ foo.id }}\">{{ foo }}</option>\n"+
+              "                        {% endfor %}\n" +
+          "                    </select>\n" +
+          "                <p align=\"right\"><a href=\"{% url 'document:create_value' 'receiver' %}\">Mantenedor de destinatarios</a></p>\n" +
+          "                </div>";
+          $("#volver").hide();
+          $("#cambiar").show();
+    }
 
-  document.getElementById('divXCambiar').innerHTML = "                " +
-      "                <div class=\"col-md-5 \">\n" +
-      "                Destinatario\n" +
-      "                    <select class=\"form-control\" name=\"receiver\">\n" +
-      "                    {% if editdoc %}\n"+
-          "                        <option value=\"{{ model.receiver.id }}\">{{ model.receiver }}</option>\n"+
-          "                    {% endif %}\n" +
-      "                        {% for foo in receiver %}\n"+
-          "                            <option value=\"{{ foo.id }}\">{{ foo }}</option>\n"+
-          "                        {% endfor %}\n" +
-      "\n" +
-      "                    </select>\n" +
-      "                <p align=\"right\"><a href=\"{% url 'document:create_value' 'receiver' %}\">Mantenedor de destinatarios</a></p>\n" +
-      "                </div>\n" +
-      "                <div class=\"col-md-2\" align=\"center\" style=\"padding-top: 20px\">\n" +
-      "                    <div class=\"btn btn-default\" onClick=\"cambiar();\" id=\"cambiar\"><i class=\"fa fa-exchange\"></i></div>\n" +
-      "                    <div class=\"btn btn-default\" onClick=\"volver();\" style=\"display: none;\" id=\"volver\"><i class=\"fa fa-exchange\"></i></div>\n" +
-      "                </div>\n" +
-      "             <div class=\"col-md-5\">\n" +
-      "                Remitente\n" +
-      "                    <select class=\"form-control\" name=\"remittent\">\n" +
-      "                        {% if editdoc  %}\n"+
-          "                            <option value=\"{{ model.remittent.id }}\">{{ model.remittent }}</option>\n"+
-          "                        {% endif %}\n" +
-      "                        {% for foo in remittent %}\n"+
-          "                            <option value=\"{{ foo.id }}\">{{ foo }}</option>\n"+
-          "                        {% endfor %}\n" +
-      "\n" +
-      "                    </select>\n" +
-      "                <p align=\"right\"><a href=\"{% url 'document:create_value' 'remittent' %}\">Mantenedor de remitentes</a></p>\n" +
-      "\n" +
-      "                </div>\n" +
-      "<input class=\"hidden\" type=\"checkbox\" name=\"change\" id=\"id_change\" checked >";
-      $("#volver").show();
-      $("#cambiar").hide();
-}
-function volver()
-{
-
-  document.getElementById('divXCambiar').innerHTML = "\n" +
-      "                <div class=\"col-md-5\">\n" +
-      "                Remitente\n" +
-      "                    <select class=\"form-control\" name=\"remittent\">\n" +
-      "                        {% if editdoc  %}\n"+
-          "                            <option value=\"{{ model.remittent.id }}\">{{ model.remittent }}</option>\n"+
-          "                        {% endif %}\n" +
-      "                        {% for foo in remittent %}\n"+
-          "                            <option value=\"{{ foo.id }}\">{{ foo }}</option>\n"+
-          "                        {% endfor %}\n" +
-      "\n" +
-      "                    </select>\n" +
-      "                <p align=\"right\"><a href=\"{% url 'document:create_value' 'remittent' %}\">Mantenedor de remitentes</a></p>\n" +
-      "\n" +
-      "                </div>\n" +
-      "                <div class=\"col-md-2\" align=\"center\" style=\"padding-top: 20px\">\n" +
-      "                    <div class=\"btn btn-default\" onClick=\"cambiar();\" id=\"cambiar\"><i class=\"fa fa-exchange\"></i></div>\n" +
-      "                    <div class=\"btn btn-default\" onClick=\"volver();\" style=\"display: none;\" id=\"volver\"><i class=\"fa fa-exchange\"></i></div>\n" +
-      "                </div>\n" +
-      "                <div class=\"col-md-5\">\n" +
-      "\n" +
-      "                Destinatario\n" +
-      "                    <select class=\"form-control\" name=\"receiver\">\n" +
-      "                    {% if editdoc %}\n"+
-          "                        <option value=\"{{ model.receiver.id }}\">{{ model.receiver }}</option>\n"+
-          "                    {% endif %}\n" +
-      "                        {% for foo in receiver %}\n"+
-          "                            <option value=\"{{ foo.id }}\">{{ foo }}</option>\n"+
-          "                        {% endfor %}\n" +
-      "\n" +
-      "                    </select>\n" +
-      "                <p align=\"right\"><a href=\"{% url 'document:create_value' 'receiver' %}\">Mantenedor de destinatarios</a></p>\n" +
-      "\n" +
-      "                </div>";
-      $("#volver").hide();
-      $("#cambiar").show();
-}
-
-
+    window.onload = function ()
+    {
+        CKEDITOR.replace('editor1');
+    };
 </script>
 {% endblock content %}
