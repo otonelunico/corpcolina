@@ -32,7 +32,7 @@ window.onload = function ()
             <form method="post">
                 <div class="row">
                     {% csrf_token %}
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
                         <label>Nombre:</label>
                         <input type="text" name="last_name" maxlength="50" value="{{ modelform.first_name }}" class="form-control" id="id_first_name" required />
                         <label style="padding-top: 20px">Apellidos</label>
@@ -41,7 +41,7 @@ window.onload = function ()
                         <input type="text" name="job_title" maxlength="100" value="{{ modelform.job_title }}" class="form-control" id="id_job_title" required />
 
                     </div>
-                    <div class="col-lg-4" align="center">
+                    <div class="col-lg-5" align="center">
                         {% if value == 'remittent' %}
                             <label>Firma:</label>
                              <textarea class="form-control" name="signature" cols="30"  id="editor1" required>
