@@ -417,8 +417,7 @@ class ListPersonalizedSet(View):
 
         return render(request, self.template, locals())
 
-
-
+"""
 ######################### test
 from django.shortcuts import render
 
@@ -440,3 +439,4 @@ class ExportView(View):
         visible_filename = str(doc.type)+' '+str(doc.number)+'.{}'.format(doctype)
 
         return FileResponse(filename, visible_filename)
+"""
