@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.core.urlresolvers import reverse_lazy
+from django.utils.html import format_html, strip_tags
+
 from documents.models import Document, Receiver, Remittent, Document_type, Alertmessage
 from documents.forms import DocumentForm, RemittentForm, ReceiverForm
 from django.utils.safestring import mark_safe
@@ -9,7 +11,6 @@ import datetime, time
 from dashboard import views
 import  ast
 from django.views import View
-
 
 
 def Current_date():
@@ -68,7 +69,7 @@ def Document_create(request):
             if doc_for_dept.count() > 0:
                 type = doc_for_dept.filter(type=obj.type)
                 last_document = type.last()
-                print(last_document.number)
+                data['change'] = last_document.change
                 obj.number = int(last_document.number) + 1
                 if obj.remittent != last_document.remittent:
                     valdos = valdos + 1
@@ -287,7 +288,6 @@ def prints(request, **kwargs):
 
     return redirect('document:documento_detalle', kwargs['id_docum'])
 
-
 def getMessage(tipo):
     return Alertmessage.objects.get(tipo=tipo)
 
@@ -416,3 +416,27 @@ class ListPersonalizedSet(View):
                         documents += [lo]
 
         return render(request, self.template, locals())
+
+
+
+######################### test
+from django.shortcuts import render
+
+from templated_docs import fill_template
+from templated_docs.http import FileResponse
+
+class ExportView(View):
+    def get(self, request, **kwargs):
+        doc = Document.objects.get(id=kwargs['id_docum'])
+        doctype = kwargs['format']
+        exp = {
+            'id': doc.id,
+            'number': doc.number,
+            'matter': doc.matter,
+            'body': strip_tags(doc.body)
+        }
+        print(exp)
+        filename = fill_template('document/OFICIO_template.odt', exp, output_format=doctype)
+        visible_filename = str(doc.type)+' '+str(doc.number)+'.{}'.format(doctype)
+
+        return FileResponse(filename, visible_filename)
