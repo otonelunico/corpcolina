@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^editar/(?P<id_documento>\d+)$', login_required(Document_edit), name="documento_edit"),
     url(r'^resume$', login_required(Resumen), name="resume"),
     url(r'^impreso/(?P<id_docum>\d+)$', login_required(prints), name="documento_impreso"),
+#    url(r'^export/(?P<id_docum>\d+)/(?P<format>\w+)$', login_required(ExportView.as_view()), name="documento_export"),
     ]

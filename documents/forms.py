@@ -5,7 +5,7 @@ class DocumentForm(forms.ModelForm):
 
 	class Meta:
 		model=Document
-		fields=[
+		fields=(
 			'type',
 			'matter',
 			'remittent',
@@ -14,7 +14,8 @@ class DocumentForm(forms.ModelForm):
 			'footer',
 			'change',
 			'previous'
-		]
+        )
+		"""
 		labels={
 			'type':'Type',
 			'matter':'Matter',
@@ -35,7 +36,7 @@ class DocumentForm(forms.ModelForm):
 			'change':forms.CheckboxInput(attrs={'class':'form-control'}),
 			'previous': forms.TextInput(attrs={'class':'form-control'}),
 			}
-
+"""
 class RemittentForm(forms.ModelForm):
 
 	class Meta:
