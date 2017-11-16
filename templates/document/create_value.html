@@ -44,7 +44,7 @@ window.onload = function ()
                     <div class="col-lg-5" align="center">
                         {% if value == 'remittent' %}
                             <label>Firma:</label>
-                             <textarea class="form-control" name="signature" cols="30"  id="editor1" required>
+                             <textarea class="form-control" name="signature" id="editor1" required>
                                 {{ modelform.signature|safe }}
                              </textarea>
                         {% endif %}
@@ -95,7 +95,7 @@ window.onload = function ()
                         <div data-toggle="collapse" data-parent="#accordion" href="#collapse{{ models.id }}" aria-expanded="false" class="collapsed" style="cursor: pointer">
                             <div class="row">
                                 <div class="col-md-3" align="center">
-                                    {{ models.first_namelast_name }}
+                                    {{ models.first_name }}
                                 </div>
                                 <div class="col-md-3" align="center">
                                     {{ models.last_name }}
