@@ -34,9 +34,9 @@ window.onload = function ()
                     {% csrf_token %}
                     <div class="col-lg-7">
                         <label>Nombre:</label>
-                        <input type="text" name="last_name" maxlength="50" value="{{ modelform.first_name }}" class="form-control" id="id_first_name" required />
+                        <input type="text" name="first_name" maxlength="50" value="{{ modelform.first_name }}" class="form-control" id="id_first_name" required />
                         <label style="padding-top: 20px">Apellidos</label>
-                        <input type="text" name="first_name" maxlength="50" value="{{ modelform.last_name }}" class="form-control" id="id_last_name" required />
+                        <input type="text" name="last_name" maxlength="50" value="{{ modelform.last_name }}" class="form-control" id="id_last_name" required />
                         <label style="padding-top: 20px">Cargo:</label>
                         <input type="text" name="job_title" maxlength="100" value="{{ modelform.job_title }}" class="form-control" id="id_job_title" required />
 
