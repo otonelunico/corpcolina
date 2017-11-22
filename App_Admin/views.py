@@ -29,7 +29,7 @@ class Select(View):
         for ll in req:
             ll.dpts_str=str(ll.dpts)
             lo = str(ll.dpts)
-            lo = lo.split('d')
+            lo = lo.replace('d', ',')
             lo = lo.split(',')
             ll.dpts = []
             for ls in lo:
@@ -39,7 +39,7 @@ class Select(View):
         for ll in users:
             if ll.departament != ',':
                 lo = ll.departament
-            lo = lo.split('d')
+            lo = lo.replace('d', ',')
             lo = lo.split(',')
             ll.departament = []
             for ls in lo:
