@@ -6,14 +6,14 @@ from django.contrib.postgres.fields import ArrayField
 
 class Logeado(models.Model):
     user = models.ForeignKey(User, null=False, blank=True, on_delete=models.CASCADE)
-    avatar = models.CharField(max_length=200)
-    departament = models.CharField(max_length=30)
-    new = models.BooleanField(default=False)
+    avatar = models.CharField(max_length=200, default='N/A')
+    departament = models.CharField(max_length=30, default=1)
+    new = models.BooleanField(default=True)
     online = models.BooleanField(default=False)
     docs = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
     tick = models.BooleanField(default=False)
-    set_departament=models.IntegerField(null=False)
+    set_departament=models.IntegerField(null=False, default=1)
     phone = models.IntegerField(default=0)
     cellphone = models.IntegerField(default=0)
 

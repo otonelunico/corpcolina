@@ -651,32 +651,32 @@ permission_id</ColNames>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="165" parent="20" name="set_departament">
+    <column id="165" parent="20" name="admin">
       <Position>6</Position>
-      <DataType>integer|0</DataType>
+      <DataType>bool|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="166" parent="20" name="admin">
+    <column id="166" parent="20" name="docs">
       <Position>7</Position>
       <DataType>bool|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="167" parent="20" name="docs">
+    <column id="167" parent="20" name="tick">
       <Position>8</Position>
       <DataType>bool|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="168" parent="20" name="tick">
+    <column id="168" parent="20" name="cellphone">
       <Position>9</Position>
-      <DataType>bool|0</DataType>
+      <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="169" parent="20" name="cellphone">
+    <column id="169" parent="20" name="phone">
       <Position>10</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="170" parent="20" name="phone">
+    <column id="170" parent="20" name="set_departament">
       <Position>11</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
@@ -917,79 +917,79 @@ model</ColNames>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="221" parent="28" name="body">
+    <column id="221" parent="28" name="footer">
       <Position>3</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="222" parent="28" name="footer">
+    <column id="222" parent="28" name="year">
       <Position>4</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="223" parent="28" name="year">
+    <column id="223" parent="28" name="updated_at">
       <Position>5</Position>
-      <DataType>text|0</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="224" parent="28" name="updated_at">
+    <column id="224" parent="28" name="created_at">
       <Position>6</Position>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="225" parent="28" name="created_at">
+    <column id="225" parent="28" name="departament_id">
       <Position>7</Position>
-      <DataType>datetime|0</DataType>
+      <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="226" parent="28" name="departament_id">
+    <column id="226" parent="28" name="receiver_id">
       <Position>8</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="227" parent="28" name="receiver_id">
+    <column id="227" parent="28" name="remittent_id">
       <Position>9</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="228" parent="28" name="remittent_id">
+    <column id="228" parent="28" name="type_id">
       <Position>10</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="229" parent="28" name="type_id">
+    <column id="229" parent="28" name="user_id">
       <Position>11</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="230" parent="28" name="user_id">
+    <column id="230" parent="28" name="activo">
       <Position>12</Position>
-      <DataType>integer|0</DataType>
+      <DataType>bool|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="231" parent="28" name="activo">
+    <column id="231" parent="28" name="print">
       <Position>13</Position>
       <DataType>bool|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="232" parent="28" name="print">
+    <column id="232" parent="28" name="send">
       <Position>14</Position>
       <DataType>bool|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="233" parent="28" name="send">
+    <column id="233" parent="28" name="change">
       <Position>15</Position>
       <DataType>bool|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="234" parent="28" name="change">
+    <column id="234" parent="28" name="previous">
       <Position>16</Position>
-      <DataType>bool|0</DataType>
+      <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="235" parent="28" name="previous">
+    <column id="235" parent="28" name="body">
       <Position>17</Position>
-      <DataType>varchar(50)|0</DataType>
+      <DataType>text|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <index id="236" parent="28" name="documents_document_departament_id_65c046b6">

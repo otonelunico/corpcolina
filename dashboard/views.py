@@ -12,7 +12,7 @@ def Dashboard(request):
                 'messages': 'Su cuenta de correo es '+request.session['email']+' favor iniciar secion con cuenta adecuada.',
                 'action': 'Cerrar Seccion'}
         return render(request, 'auth/error.html', data)
-    else:
+    elif Logeado.objects.filter(user=request.user).count()>0:
         user=Logeado.objects.get(user=request.user)
         request.session['id'] = user.user.id
         if user.user.is_superuser:
@@ -53,6 +53,11 @@ def Dashboard(request):
             return redirect(reverse_lazy('document:resume'))
         elif user.tick:
             return redirect(reverse_lazy('ticket:states'))
+        else:
+            return redirect(reverse_lazy('auth:newuser'))
+    else:
+        return redirect(reverse_lazy('auth:newuser'))
+
 
 def SetDepartament(request, name):
     user = Logeado.objects.get(user=request.user)

@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Req
 from django.contrib.auth.models import User
 from authentication.models import Logeado
 from department.models import Departament
 from django.views import View
-from .forms import ReqForm
 
 # Create your views here.
 
@@ -18,15 +17,15 @@ class Select(View):
             return 'close'
     def get(self, request):
         req = Req.objects.filter(active=True).order_by('id')
-        form = ReqForm()
         for re in req:
-           re.admin = self.icon(re.admin)
-           re.tick = self.icon(re.tick)
-           re.docs = self.icon(re.docs)
+           re.admin_icon = self.icon(re.admin)
+           re.tick_icon = self.icon(re.tick)
+           re.docs_icon = self.icon(re.docs)
 
 
         users = Logeado.objects.all()
         dep = Departament.objects.all()
+        lo = None
         for ll in req:
             lo = str(ll.dpts)
             lo = lo.split(',')
@@ -44,10 +43,55 @@ class Select(View):
                 for le in dep:
                     if int(ls) == le.id:
                         ll.departament += [le]
-
-            #ll.departament={'asd': 'as'}
         return render(request, self.template, locals())
 
-    def post(self, request, **kwargs):
+class Register(View):
 
-        return render(request, self.template, locals())
+
+    def get(self, request, **kwargs):
+        print(kwargs)
+        req = Req.objects.get(id=kwargs['id'])
+        print(req.user.user.id)
+        loge = Logeado.objects.get(user_id=req.user.user.id)
+        loge.tick = kwargs['tick']
+        loge.admin = kwargs['admin']
+        loge.docs = kwargs['docs']
+        loge.departament = kwargs['dpts']
+        loge.save()
+        print(str(req.user)+' - '+str(loge.user))
+        return redirect('administrator:select')
+
+
+import xlwt
+
+from django.http import HttpResponse
+
+def export_users_xls(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="users.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Users')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Username', 'First name', 'Last name', 'Email address', ]
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    rows = User.objects.all().values_list('username', 'first_name', 'last_name', 'email')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response

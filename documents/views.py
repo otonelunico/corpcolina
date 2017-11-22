@@ -129,6 +129,7 @@ def Document_create(request):
     data['form']= form
     data['date']= date
     data['model']= doc_for_dept.last()
+    print(data['model'].change)
     return render(request, 'document/form.html', data)
 
 def Create_value(request, value):
@@ -137,7 +138,7 @@ def Create_value(request, value):
         data['titulo'] = 'Remitente'
         data['tema'] = 'remitente'
         if Remittent.objects.all().count() >= 1:
-            data['model'] = Remittent.objects.all().order_by('last_name')
+            data['model'] = Remittent.objects.filter(active=True).order_by('last_name')
         data['form'] = RemittentForm()
         if request.method == 'POST':
             data['form'] = RemittentForm(request.POST)
@@ -164,7 +165,7 @@ def Edit_value(request, value, id_value):
         data['titulo'] = 'Remitente'
         data['tema'] = 'remitente'
         data['edit'] = True  # Para activar texto enriquesido
-        data['model'] = Remittent.objects.all().order_by('first_name')
+        data['model'] = Remittent.objects.filter(active=True).order_by('first_name')
         data['modelform'] = Remittent.objects.get(id = id_value)
         if request.method == 'GET':
             data['form'] = RemittentForm(data['modelform'])
@@ -191,20 +192,23 @@ def Edit_value(request, value, id_value):
 
     return render(request, 'document/create_value.html', data)
 
-def Active_off(request, value, id_value):
-    if value == 'desde':
+def Active_off(request, **kwargs):
+    print(kwargs)
+    value = kwargs['value']
+    id_value = kwargs['id_value']
+    if value == 'remittent':
         value_ = Remittent.objects.get(id=id_value)
-        value_.activo = False
+        value_.active = False
         value_.save()
         return redirect('document:create_value', value)
-    elif value == 'para':
+    elif value == 'receiver':
         value_ = Receiver.objects.get(id=id_value)
-        value_.activo = False
+        value_.active = False
         value_.save()
         return redirect('document:create_value', value)
     elif value == 'documento':
         value_ = Document.objects.get(id=id_value)
-        value_.activo = False
+        value_.active = False
         value_.save()
         return redirect('document:documento_list')
 
