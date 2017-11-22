@@ -30,6 +30,7 @@ class Select(View):
             ll.dpts_str=str(ll.dpts)
             lo = str(ll.dpts)
             lo = lo.split('d')
+            lo = lo.split(',')
             ll.dpts = []
             for ls in lo:
                 for le in dep:
@@ -39,6 +40,7 @@ class Select(View):
             if ll.departament != ',':
                 lo = ll.departament
             lo = lo.split('d')
+            lo = lo.split(',')
             ll.departament = []
             for ls in lo:
                 for le in dep:
