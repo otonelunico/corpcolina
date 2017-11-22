@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'department',
     'App_Admin',
     'django_extensions',
-    #'templated_docs'
 ]
 
 MIDDLEWARE = [
