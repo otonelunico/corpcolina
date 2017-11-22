@@ -32,7 +32,6 @@ class Document_type(models.Model):
     titulo = models.CharField(max_length=50)
 
     def __str__(self):
-
         return self.titulo
 
 class Document(models.Model):
@@ -53,6 +52,10 @@ class Document(models.Model):
     change = models.BooleanField()
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+
+        return (self.number + " " + self.matter)
 
 
 class Alertmessage(models.Model):
