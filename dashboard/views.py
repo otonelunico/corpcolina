@@ -31,7 +31,6 @@ def Dashboard(request):
             request.session['departament'] = {}
             request.session['departament']['set'] = True
             print(e)
-
         request.session['departament']['id'] = str(user.departament).split(",")
         request.session['departament']['active_id'] = user.set_departament
         request.session['departament']['active'] = { 'id' : Departament.objects.get(id=user.set_departament).id,

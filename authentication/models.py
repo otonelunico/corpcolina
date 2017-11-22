@@ -13,7 +13,7 @@ class Logeado(models.Model):
     docs = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
     tick = models.BooleanField(default=False)
-    set_departament=models.IntegerField(null=False, default=1)
+    set_departament=models.IntegerField(null=False)
     phone = models.IntegerField(default=0)
     cellphone = models.IntegerField(default=0)
 
