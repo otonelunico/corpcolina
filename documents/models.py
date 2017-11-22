@@ -55,7 +55,7 @@ class Document(models.Model):
 
     def __str__(self):
 
-        return (self.number + " " + self.matter)
+        return (str(self.number) + " " + self.matter)
 
 
 class Alertmessage(models.Model):
