@@ -44,14 +44,14 @@
                 var admin = document.getElementById('id_admin').checked;
                 var dpts= $("#id_dpts").val();
                 var coment= $("#id_coment").val();
-
+                dpts_ = String(dpts).replace(",","d");
                 if (coment === '') {
                     coment = 'false'
                 }
 
-                var content = dpts+';'+docs+';'+tick+';'+ admin+';'+ coment;
+                var content = dpts_+';'+docs+';'+tick+';'+ admin+';'+ coment;
                 document.getElementById('id_input').innerHTML ='<input hidden type="text" name="transfer" value="'+content+'" id="id_obj1" maxlength="250" />\n';
-                //document.getElementById("form").submit();
+                document.getElementById("form").submit();
             }
         </script>
     </head>
@@ -165,7 +165,7 @@
                     </div>
                     <div align="center">
                         <div id="id_input"></div>
-                        <button class="btn btn-primary" onclick="request()"> Solicitar</button>
+                        <a class="btn btn-primary" onclick="request()"> Solicitar</a>
                     </div>
                 </form>
             </section>

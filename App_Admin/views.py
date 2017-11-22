@@ -27,8 +27,9 @@ class Select(View):
         dep = Departament.objects.all()
         lo = None
         for ll in req:
+            ll.dpts_str=str(ll.dpts)
             lo = str(ll.dpts)
-            lo = lo.split(',')
+            lo = lo.split('d')
             ll.dpts = []
             for ls in lo:
                 for le in dep:
@@ -37,7 +38,7 @@ class Select(View):
         for ll in users:
             if ll.departament != ',':
                 lo = ll.departament
-            lo = lo.split(',')
+            lo = lo.split('d')
             ll.departament = []
             for ls in lo:
                 for le in dep:
@@ -58,7 +59,6 @@ class Register(View):
         loge.departament = kwargs['dpts']
         loge.new = False
         loge.save()
-        print(str(req.user)+' - '+str(loge.user))
         return redirect('administrator:select')
 
 

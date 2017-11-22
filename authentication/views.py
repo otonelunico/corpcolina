@@ -107,6 +107,7 @@ class Newuser(View):
             tra = tra.replace('true', 'True')
             tra = tra.split(';')
             tra += [user]
+            print(tra)
             if Req.objects.filter(user=user).count() >0:
                 req = Req.objects.get(user=user)
                 req.dpts = tra[0]
@@ -125,7 +126,6 @@ class Newuser(View):
                 user = tra[5],
             )
 
-            print(tra)
             #request.session['new'] = False
             #form.save()
         else:
