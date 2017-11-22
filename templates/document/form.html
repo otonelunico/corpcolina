@@ -49,7 +49,7 @@
             </div>
             <div class="form-group">
                 <div class="row" id="divXCambiar">
-                {% if model.change or change%}
+                {% if change or model.change %}
                     <div class="col-md-5">
 
                     Destinatario
@@ -83,6 +83,8 @@
                     <p align="right"><a href="{% url 'document:create_value' 'remittent' %}">Mantenedor de remitentes</a></p>
 
                     </div>
+                    <input class="hidden" type="checkbox" name="change" id="id_change" checked >
+
                 {% else %}
                     <div class="col-md-5">
                     Remitente
