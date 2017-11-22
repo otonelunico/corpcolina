@@ -59,7 +59,7 @@ class Register(View):
         loge.admin = kwargs['admin']
         loge.docs = kwargs['docs']
         loge.departament = kwargs['dpts'].replace('d', ',')
-        loge.set_departament= (loge.departament.lo.split(','))[0]
+        loge.set_departament= (str(loge.departament).split(','))[0]
         loge.new = False
         loge.save()
         return redirect('administrator:select')
