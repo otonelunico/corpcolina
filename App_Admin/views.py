@@ -47,16 +47,16 @@ class Select(View):
 
 class Register(View):
 
-
     def get(self, request, **kwargs):
-        print(kwargs)
         req = Req.objects.get(id=kwargs['id'])
-        print(req.user.user.id)
+        req.active = False
+        req.save()
         loge = Logeado.objects.get(user_id=req.user.user.id)
         loge.tick = kwargs['tick']
         loge.admin = kwargs['admin']
         loge.docs = kwargs['docs']
         loge.departament = kwargs['dpts']
+        loge.new = False
         loge.save()
         print(str(req.user)+' - '+str(loge.user))
         return redirect('administrator:select')
