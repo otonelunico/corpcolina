@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
-from .forms import EstablecimientoForm, RespuestaForm, TicketForm, TemaForm, TecnicoForm
+from .forms import EstablecimientoForm, RespuestaForm, TicketForm, TemaForm, SegumentForm
 from django.views import View
 from .models import Tema, Establecimiento, Tecnico, Estado, Ticket, Respuestas
 from django.utils.safestring import mark_safe
 from authentication.models import Logeado
 from authentication.views import userAdmin
+
+
+template_no_valid = 'admin/error.html'
 
 class State(View):
     template = 'ticket/states.html'
@@ -66,6 +69,9 @@ class DetailTicket(View):
 
     def get(self, request, *args, **kwargs):
         detalle = Ticket.objects.get(id = kwargs['id'])
+        if detalle.asignado == request.session['id']:
+            user_asign = True
+        print(detalle.usuario.username)
         resp = Respuestas.objects.filter(ticket_id=detalle)
         detalle.detall_problema = mark_safe(detalle.detall_problema)
         for foo in resp:
@@ -75,7 +81,7 @@ class DetailTicket(View):
         if detalle.asignado == None:
             detalle.asignado = 'A espera de asignacion de tecnico'
         else:
-            detalle.asignado = Tecnico.objects.get(id = detalle.asignado)
+            detalle.asignado = Tecnico.objects.get(tecnico_id=detalle.asignado)
 
         print(request.session['id'])
         return render(request, self.template, locals())
@@ -108,6 +114,25 @@ class AllListTicket(View):
     template = 'ticket/list.html'
 
     def get(self, request):
-        userAdmin(request)
+        if userAdmin(request)!= True:
+            return render(request, template_no_valid)
         tickets = Ticket.objects.all().order_by('id')
+        return render(request, self.template, locals())
+
+class Seguiment(View):
+    template = 'ticket/segiment.html'
+
+    def get(self, request, *args, **kwargs):
+        form = SegumentForm()
+        return render(request, self.template, locals())
+
+    def post(self, request, **kwargs):
+        error = None
+        form = SegumentForm(request.POST)
+        if form.is_valid():
+            ticket = form.cleaned_data['codigo']
+            if Ticket.objects.filter(id=ticket).count()>0:
+                return redirect('ticket:detail', ticket)
+            else:
+                error= "Ticket solicitado no existe"
         return render(request, self.template, locals())

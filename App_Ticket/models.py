@@ -3,11 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Tecnico(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    correo = models.EmailField()
+    tecnico = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     def __str__(self):
-        return '{}'.format(self.nombre+" "+self.apellido)
+        return '{}'.format(self.tecnico.first_name+" "+self.tecnico.last_name)
 
 class Estado(models.Model):
     titulo = models.CharField(max_length=50)

@@ -11,7 +11,9 @@ import datetime, time
 from dashboard import views
 import  ast
 from django.views import View
+from authentication.views import userAdmin, userDocs
 
+template_no_valid = 'admin/error.html'
 
 def Current_date():
     x = datetime.datetime.now()
@@ -53,6 +55,9 @@ def Current_date():
     return fecha
 
 def Document_create(request):
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
+
     depto= Departament.objects.get(id=request.session['departament']['active_id'])
     doc_for_dept= Document.objects.filter(departament=request.session['departament']['active_id'])
     date = Current_date()
@@ -133,6 +138,8 @@ def Document_create(request):
     return render(request, 'document/form.html', data)
 
 def Create_value(request, value):
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
     data = {'value': value}
     if value == 'remittent':
         data['titulo'] = 'Remitente'
@@ -160,6 +167,8 @@ def Create_value(request, value):
     return render(request, 'document/create_value.html', data)
 
 def Edit_value(request, value, id_value):
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
     data = {'value': value}
     if value == 'remittent':
         data['titulo'] = 'Remitente'
@@ -193,6 +202,8 @@ def Edit_value(request, value, id_value):
     return render(request, 'document/create_value.html', data)
 
 def Active_off(request, **kwargs):
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
     print(kwargs)
     value = kwargs['value']
     id_value = kwargs['id_value']
@@ -213,6 +224,8 @@ def Active_off(request, **kwargs):
         return redirect('document:documento_list')
 
 def Document_edit(request, id_documento):
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
 
     doc_for_dept= Document.objects.filter(departament=request.session['departament']['active_id'])
     data={'model' : Document.objects.get(id=id_documento)}
@@ -242,10 +255,14 @@ def Document_edit(request, id_documento):
     return render(request, 'document/form.html', data)
 
 def Document_list(request):
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
     model = Document.objects.filter(departament=request.session['departament']['active_id']).order_by('id')
     return render(request, 'document/list.html', {'model': model})
 
 def Document_list_filter(request, **kwargs):
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
     model = Document.objects.filter(departament=request.session['departament']['active_id']).order_by('id')
     if kwargs['value']== 'null':
         model = Document.objects.filter(departament=request.session['departament']['active_id'], activo=False).order_by('id')
@@ -256,7 +273,8 @@ def Document_list_filter(request, **kwargs):
     return render(request, 'document/list.html', {'model': model})
 
 def Detalle_doc(request, id_docum, **kwargs):
-    print(kwargs)
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
     data = {
         'detail': Document.objects.get(id=id_docum),
         'date': str(Document.objects.get(id=id_docum).created_at),
@@ -271,6 +289,8 @@ def Detalle_doc(request, id_docum, **kwargs):
     return render(request, "document/detail.html", data)
 
 def Resumen(request, **kwargs):
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
     data = {}
     if Document.objects.filter(departament=request.session['departament']['active_id']):
         data['model'] = Document.objects.filter(departament=request.session['departament']['active_id']).order_by('-id')[:5]
@@ -283,6 +303,8 @@ def Resumen(request, **kwargs):
     return render(request, 'document/resume.html', data)
 
 def prints(request, **kwargs):
+    if userDocs(request) != True:
+        return render(request, template_no_valid)
 
     obj = Document.objects.get(id=kwargs['id_docum'])
     obj.print = True
@@ -305,6 +327,8 @@ class ListPersonalized(View):
     template = 'document/personalized_list.html'
 
     def get(self, request):
+        if userDocs(request) != True:
+            return render(request, template_no_valid)
         type = Document_type.objects.all()
         remittent = Remittent.objects.all()
         receiver = Receiver.objects.all()
@@ -317,6 +341,8 @@ class ListPersonalizedSet(View):
 
 
     def get(self, request, **kwargs):
+        if userDocs(request) != True:
+            return render(request, template_no_valid)
         type = Document_type.objects.all()
         remittent= Remittent.objects.all()
         receiver = Receiver.objects.all()

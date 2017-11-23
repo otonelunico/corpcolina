@@ -135,9 +135,12 @@ class Newuser(View):
         return redirect(reverse_lazy('auth:espera'))
 
 def userAdmin(request):
-    if Logeado.objects.get(user=request.user):
-        print("sii")
-        return render(request, 'document/form.html')
+    if Logeado.objects.get(user=request.user).admin:
+        return True
+
+def userDocs(request):
+    if Logeado.objects.get(user=request.user).docs:
+        return True
 
 class Espera(View):
     template = 'auth/espera.html'

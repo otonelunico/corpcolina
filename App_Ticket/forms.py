@@ -96,7 +96,7 @@ class RespuestaForm(forms.ModelForm):
             'mensaje': forms.Textarea(attrs={'class':'form-control'}),
 		}"""
 
-class TecnicoForm(forms.ModelForm):
+"""class TecnicoForm(forms.ModelForm):
 
 	class Meta:
 		model=Tecnico
@@ -115,3 +115,8 @@ class TecnicoForm(forms.ModelForm):
 			'apellido': forms.TextInput(attrs={'class':'form-control'}),
 			'correo': forms.TextInput(attrs={'class':'form-control'}),
 		}
+"""
+
+class SegumentForm(forms.Form):
+
+	codigo = forms.IntegerField()

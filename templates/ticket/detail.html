@@ -9,7 +9,7 @@
 {% block content %}
     <div class="box box-default color-palette-box">
         <div class="box-header with-border">
-          <h3 class="box-title"><i class="fa fa-tag"></i> Detalle del ticket N° {{ detalle.id }}, su estado es {{ detalle.estado }}, creado por {{ detalle.usuario }}</h3>
+          <h3 class="box-title"><i class="fa fa-tag"></i> Detalle del ticket N° {{ detalle.id }}, su estado es {{ detalle.estado }}, creado por {{ detalle.usuario.username }}</h3>
         </div>
         <div class="box-body ">
                 <div class="row ">
@@ -88,7 +88,7 @@
             </div>
         </div>
         {% endfor %}
-
+        {% if user_asign %}
         <div class="box-footer">
             <form action="" method="post">
                         {% csrf_token %}
@@ -103,6 +103,7 @@
                 </div>
             </form>
         </div>
+        {% endif %}
     </div>
 
 <script>

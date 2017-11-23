@@ -204,11 +204,19 @@
         <li><a href="{% url 'document:documento_personalized' %}"><i class="fa fa-circle-o"></i> <span>Listar Agrupados</span></a></li>
       {% endif %}
       {% if request.session.ticket %}
-        <li class="header">Ticket de trabajo</li>
-        <li><a href="{% url 'ticket:states' %}"><i class="fa fa-dashboard"></i> <span>Estados</span></a></li>
-        <li><a href="{% url 'ticket:new' %}"><i class="fa fa-circle-o"></i> <span>Nuevo</span></a></li>
-        <li><a href="{% url 'ticket:states' %}"><i class="fa fa-circle-o"></i> <span>Listado</span></a></li>
-        <li><a href=""><i class="fa fa-circle-o"></i> <span>Seguimiento</span></a></li>
+          <li class="header">Ticket de trabajo</li>
+          {% if request.session.tecnico %}
+            <li><a href="{% url 'ticket:states' %}"><i class="fa fa-dashboard"></i> <span>Estados</span></a></li>
+            <li><a href="{% url 'ticket:alllist' %}"><i class="fa fa-circle-o"></i> <span>Listado de ticket</span></a></li>
+            <li><a href="{% url 'ticket:asignad' %}"><i class="fa fa-circle-o"></i> <span>Mis ticket asignados</span></a></li>
+            <li><a href="{% url 'ticket:seguiment' %}"><i class="fa fa-circle-o"></i> <span>Seguimiento</span></a></li>
+
+          {% else %}
+            <li><a href="{% url 'ticket:states' %}"><i class="fa fa-dashboard"></i> <span>Estados</span></a></li>
+            <li><a href="{% url 'ticket:new' %}"><i class="fa fa-circle-o"></i> <span>Nuevo</span></a></li>
+            <li><a href="{% url 'ticket:list' %}"><i class="fa fa-circle-o"></i> <span>Mis Tickets</span></a></li>
+            <li><a href="{% url 'ticket:seguiment' %}"><i class="fa fa-circle-o"></i> <span>Seguimiento</span></a></li>
+        {% endif %}
       {% endif %}
       </ul>
     </section>

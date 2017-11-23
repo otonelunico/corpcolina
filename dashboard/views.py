@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from authentication.models import Logeado, Departament
+from App_Ticket import models
 from django.core.urlresolvers import reverse_lazy
 
 # Create your views here.
@@ -36,7 +37,10 @@ def Dashboard(request):
         request.session['departament']['active'] = { 'id' : Departament.objects.get(id=user.set_departament).id,
                                                      'name': Departament.objects.get(id=user.set_departament).name}
         request.session['departament']['list'] =[]
+        ll = ""
         for lo in request.session['departament']['id']:
+           ll = ll+str(lo)
+        for lo in ll.split('d'):
             if lo != "":
                 request.session['departament']['list']+=[{'id' : Departament.objects.get(id=int(lo)).id,
                                                          'name': Departament.objects.get(id=int(lo)).name}]
@@ -47,6 +51,8 @@ def Dashboard(request):
             return redirect(reverse_lazy('auth:newuser'))
         request.session['ticket'] = user.tick
         request.session['docs'] = user.docs
+        if models.Tecnico.objects.filter(tecnico = user.user).count()>0:
+            request.session['tecnico'] = True
         #return render(request, 'dashboard/dashboard.html')
         if user.docs:
             return redirect(reverse_lazy('document:resume'))
